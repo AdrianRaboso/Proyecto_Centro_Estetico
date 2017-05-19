@@ -22,8 +22,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Map<String, List<String>> laptopCollections;
     private List<String> laptops;
 
-    public ExpandableListAdapter(Activity context, List<String> laptops,
-                                 Map<String, List<String>> laptopCollections) {
+    public ExpandableListAdapter(Activity context, List<String> laptops, Map<String, List<String>> laptopCollections) {
         this.context = context;
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
@@ -38,8 +37,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
 
-    public View getChildView(final int groupPosition, final int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final String laptop = (String) getChild(groupPosition, childPosition);
         LayoutInflater inflater = context.getLayoutInflater();
 
@@ -73,8 +71,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String laptopName = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.group_item,
-                    null);
+            convertView = infalInflater.inflate(R.layout.group_item, null);
         }
         TextView item = (TextView) convertView.findViewById(R.id.laptop);
         item.setTypeface(null, Typeface.BOLD);

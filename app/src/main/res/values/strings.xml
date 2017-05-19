@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Proyecto_Centro_Estetico</string>
+    <string name="app_name">Centro Estético</string>
+    <string name="app_resumen_cita">Datos de la cita</string>
+    <string name="btn_resumen_cancelar">Rechazar</string>
+    <string name="btn_resumen_aceptar">Confirmar</string>
+    <string name="title_activity_inicio">InicioActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="app_pedir_cita">Elija su cita..</string>
 </resources>

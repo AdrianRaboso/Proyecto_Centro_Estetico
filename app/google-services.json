@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1080537736685",
+    "firebase_url": "https://centro-estetico.firebaseio.com",
+    "project_id": "centro-estetico",
+    "storage_bucket": "centro-estetico.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080537736685:android:615163e4a1fbeefc",
+        "android_client_info": {
+          "package_name": "com.example.adrin.proyecto_centro_estetico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080537736685-ht3kv1t4u8ti44ltpaahjq4ob6aeh4g9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.adrin.proyecto_centro_estetico",
+            "certificate_hash": "40755dcd3ee260cffe727c59b83d26075c9116d4"
+          }
+        },
+        {
+          "client_id": "1080537736685-fog0n3nupnig3r1huo92llptov22r2a8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK2EOVXaFySwqE5w_bvCgPsr893vym110"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080537736685-fog0n3nupnig3r1huo92llptov22r2a8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
