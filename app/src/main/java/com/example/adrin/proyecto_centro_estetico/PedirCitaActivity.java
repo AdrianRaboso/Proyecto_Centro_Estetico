@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.example.adrin.proyecto_centro_estetico.model.Cita;
 import com.example.adrin.proyecto_centro_estetico.model.Hora;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import me.drozdzynski.library.steppers.OnCancelAction;
 import me.drozdzynski.library.steppers.OnChangeStepAction;
@@ -35,6 +38,7 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
     private final int CANCELAR_CITA = 3;
     private FirebaseDatabase database;
     private DatabaseReference refHorario;
+    private DatabaseReference refCitas;
 
 
     @Override
@@ -44,19 +48,26 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
 
         //Referenciamos a la tabla horario
         database = FirebaseDatabase.getInstance();
+        refCitas = database.getReference("Citas");
         refHorario = database.getReference("Horario");
-        refHorario.addValueEventListener(new ValueEventListener() {
+        //Cargamos la lista de horario
+        Hora.crearLista();
+
+        //Recogemos la lista de citas
+        refCitas.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (Hora.listaHoras.isEmpty()) {//si la lista esta vacia la cargamos con los datos
-                    for (DataSnapshot horaSnapshot : snapshot.getChildren()) {
-                        String ocupada = horaSnapshot.child("ocupada").getValue().toString();
-                        boolean ocu = Boolean.parseBoolean(ocupada);
-                        String horaString = horaSnapshot.child("hora").getValue().toString();
-                        int horaInt = Integer.parseInt(horaString);
-                        Hora hora = new Hora(horaInt, ocu);
-                        Hora.listaHoras.add(hora);
-                    }
+                //Borramos la lista para que se carguen los datos nuevos
+                Cita.listaCitas.clear();
+                for (DataSnapshot citaSnapshot : snapshot.getChildren()) {
+                    String tratamiento = citaSnapshot.child("tratamiento").getValue().toString();
+                    String fecha = citaSnapshot.child("fecha").getValue().toString();
+                    String horaString = citaSnapshot.child("hora").getValue().toString();
+                    int hora = Integer.parseInt(horaString);
+                    String id = citaSnapshot.getKey();
+
+                    Cita cita = new Cita(id, tratamiento, fecha, hora);
+                    Cita.listaCitas.add(cita);
                 }
             }
 
@@ -94,7 +105,20 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
         steppersViewConfig.setOnChangeStepAction(new OnChangeStepAction() {
             @Override
             public void onChangeStep(int position, SteppersItem activeStep) {
-                // Action when click continue on each step
+                // Si hay elegido ya la fecha rellenamos el horario de ese dia
+                if (position == 2) {
+                    for (Cita cita : Cita.listaCitas) {
+                        //Si la fecha de la cita actual coincide con las que ya estan hechas guardamos la hora
+                        if (datosCita.get("fecha").equals(cita.getFecha())) {
+                            //Recorremos el horario y marcamos la hora que este ocupada
+                            for (Hora hora : Hora.listaHoras) {
+                                if (hora.getHora() == cita.getHora()) {
+                                    hora.setOcupada(true);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -158,21 +182,24 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
 
     @Override
     public void onFechaSeleccionado(int y, int m, int d) {
-        int[] fecha = {y, m, d};
-        steps.get(1).setPositiveButtonEnable(true);
-        datosCita.putIntArray("fecha", fecha);
-        //Snackbar.make(getCurrentFocus(), "Fecha: " + d + "/" + m + "/" + y, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+        String fechaString = y + "/" + m + "/" + d;
+        Date fechaElegida = new Date(y, m, d);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaElegida);
+        int diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
+        if (diaSemana != 1 && diaSemana != 2) {//Si el dia elegido no es fin de semana
+            steps.get(1).setPositiveButtonEnable(true);
+            datosCita.putString("fecha", fechaString);
+        } else {
+            Snackbar.make(getCurrentFocus(), "¡Ese día no trabajamos, lo sentimos!", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
+            steps.get(1).setPositiveButtonEnable(false);
+        }
     }
 
     @Override
     public void onListFragmentInteraction(Hora item) {
-        String hora;
-        if (item.getHora() < 10) {
-            hora = "0" + item.getHora() + ":00";
-        } else {
-            hora = item.getHora() + ":00";
-        }
         steps.get(2).setPositiveButtonEnable(true);
-        datosCita.putString("hora", hora);
+        datosCita.putInt("hora", item.getHora());
     }
 }

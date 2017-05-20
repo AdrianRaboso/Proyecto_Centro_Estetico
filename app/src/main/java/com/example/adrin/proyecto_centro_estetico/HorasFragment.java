@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.adrin.proyecto_centro_estetico.model.Hora;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,17 +54,12 @@ public class HorasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_horas_list, container, false);
 
-
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             final RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            //TODO: hay que cambiar esta parte
-            if (Hora.listaHoras.isEmpty()) {
-                //Hora.crearLista();
-            }
             recyclerView.setAdapter(new MyhorasRecyclerViewAdapter(Hora.listaHoras, mListener));
         }
         return view;

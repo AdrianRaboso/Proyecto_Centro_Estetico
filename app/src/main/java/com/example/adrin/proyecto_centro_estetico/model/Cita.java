@@ -1,74 +1,83 @@
 package com.example.adrin.proyecto_centro_estetico.model;
 
-import java.sql.Time;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * Created by Adrián on 29/04/2017.
  */
 
 public class Cita {
-    private int cod_cita;
-    private Cliente cod_cliente;
-    private Tratamiento cod_tratamiento;
-    private Date fecha_cita;
-    private Time horaInicio;
-    private Time horaFin;
+    private String cod_cita;
+    private String cod_cliente;
+    private String tratamiento;
+    private String fecha;
+    private int hora;
+    public static ArrayList<Cita> listaCitas = new ArrayList<>();
 
-    public Cita(int cod_cita, Cliente cod_cliente, Tratamiento cod_tratamiento, Date fecha_cita, Time horaInicio, Time horaFin) {
+    public Cita(String cod_cita, String tratamiento, String fecha_cita, int hora) {
         this.cod_cita = cod_cita;
+        this.tratamiento = tratamiento;
+        this.hora = hora;
+        this.fecha = fecha_cita;
+    }
+
+    public Cita(String tratamiento, String fecha_cita, int hora) {
+        this.tratamiento = tratamiento;
+        this.hora = hora;
+        this.fecha = fecha_cita;
+    }
+
+    public static void setListaCitas(ArrayList<Cita> listaCitas) {
+        Cita.listaCitas = listaCitas;
+    }
+
+    public static ArrayList<Cita> getListaCitas() {
+
+        return listaCitas;
+    }
+
+    public void setCod_cliente(String cod_cliente) {
         this.cod_cliente = cod_cliente;
-        this.cod_tratamiento = cod_tratamiento;
-        this.fecha_cita = fecha_cita;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
     }
 
-    public void setCod_cita(int cod_cita) {
-        this.cod_cita = cod_cita;
-    }
+    public String getCod_cliente() {
 
-    public void setCod_cliente(Cliente cod_cliente) {
-        this.cod_cliente = cod_cliente;
-    }
-
-    public void setCod_tratamiento(Tratamiento cod_tratamiento) {
-        this.cod_tratamiento = cod_tratamiento;
-    }
-
-    public void setFecha_cita(Date fecha_cita) {
-        this.fecha_cita = fecha_cita;
-    }
-
-    public void setHoraInicio(Time horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public void setHoraFin(Time horaFin) {
-        this.horaFin = horaFin;
-    }
-
-    public int getCod_cita() {
-        return cod_cita;
-    }
-
-    public Cliente getCod_cliente() {
         return cod_cliente;
     }
 
-    public Tratamiento getCod_tratamiento() {
-        return cod_tratamiento;
+    public void setCod_cita(String cod_cita) {
+        this.cod_cita = cod_cita;
     }
 
-    public Date getFecha_cita() {
-        return fecha_cita;
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
-    public Time getHoraInicio() {
-        return horaInicio;
+    public String getFecha() {
+
+        return fecha;
     }
 
-    public Time getHoraFin() {
-        return horaFin;
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+
+    public int getHora() {
+
+        return hora;
+    }
+
+    public String getCod_cita() {
+        return cod_cita;
+    }
+
+    public void setTratamiento(String tratamiento) {
+        this.tratamiento = tratamiento;
+    }
+
+    public String getTratamiento() {
+
+        return tratamiento;
     }
 }

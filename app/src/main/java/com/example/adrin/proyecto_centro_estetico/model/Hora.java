@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Hora {
     private int hora;
+    private String ID;
     private boolean ocupada;
     public static ArrayList<Hora> listaHoras = new ArrayList<>();
 
@@ -17,13 +18,29 @@ public class Hora {
         this.ocupada = ocupada;
     }
 
+    public Hora(String ID, int hora, boolean ocupada) {
+        this.ID = ID;
+        this.hora = hora;
+        this.ocupada = ocupada;
+    }
+
     public static List<Hora> crearLista() {
         Hora hora;
+        Hora.listaHoras.clear();
         for (int h = 8; h < 22; h++) {
             hora = new Hora(h, false);
             listaHoras.add(hora);
         }
         return listaHoras;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getID() {
+
+        return ID;
     }
 
     public void setHora(int hora) {

@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.adrin.proyecto_centro_estetico.model.Cita;
+import com.example.adrin.proyecto_centro_estetico.model.Hora;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +27,7 @@ public class ResumenCitaActivity extends AppCompatActivity {
     private final int CANCELAR_CITA = 3;
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
+    private DatabaseReference refHorario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,14 @@ public class ResumenCitaActivity extends AppCompatActivity {
 
         //Guardamos los datos que nos pasa el activity anterior
         tratamiento.setText(getIntent().getExtras().getString("tratamiento"));
-        int[] fechaArray = getIntent().getExtras().getIntArray("fecha");
-        String horaString = getIntent().getExtras().getString("hora");
-        fecha.setText(fechaArray[0] + "/" + fechaArray[1] + "/" + fechaArray[2]);
+        String fechaString = getIntent().getExtras().getString("fecha");
+        String horaString;
+        if (getIntent().getExtras().getInt("hora") < 10) {
+            horaString = "0" + getIntent().getExtras().getInt("hora") + ":00";
+        } else {
+            horaString = getIntent().getExtras().getInt("hora") + ":00";
+        }
+        fecha.setText(fechaString);
         hora.setText(horaString);
 
         //Ponemos a la escucha los botones
@@ -61,12 +69,8 @@ public class ResumenCitaActivity extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 setResult(ACEPTAR_CITA, returnIntent);
                 //Añadimos la cita a la base de datos
-                Map<String, String> datosCita = new HashMap<String, String>();
-                datosCita.put("tratamiento", tratamiento.getText().toString());
-                datosCita.put("fecha", fecha.getText().toString());
-                datosCita.put("hora", hora.getText().toString());
+                Cita datosCita = new Cita(tratamiento.getText().toString(), fecha.getText().toString(), getIntent().getExtras().getInt("hora"));
                 refCitas.push().setValue(datosCita);
-
                 finish();
             }
         });
@@ -76,7 +80,7 @@ public class ResumenCitaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder cancelDialog = new AlertDialog.Builder(ResumenCitaActivity.this);
                 cancelDialog.setTitle("Cambiar la cita");
-                cancelDialog.setMessage("¿Quieres cambiar la cita?");
+                cancelDialog.setMessage("¿Quieres hacer algún cambio?");
                 cancelDialog.setPositiveButton("CAMBIAR", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -85,7 +89,7 @@ public class ResumenCitaActivity extends AppCompatActivity {
                         finish();//Cerramos la vista resumen y volvemos a la anterior
                     }
                 });
-                cancelDialog.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                cancelDialog.setNegativeButton("CERRAR", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent returnIntent = new Intent();
