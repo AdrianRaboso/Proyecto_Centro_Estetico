@@ -27,7 +27,6 @@ public class ResumenCitaActivity extends AppCompatActivity {
     private final int CANCELAR_CITA = 3;
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
-    private DatabaseReference refHorario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

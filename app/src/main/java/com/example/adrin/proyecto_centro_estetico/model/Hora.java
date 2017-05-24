@@ -24,6 +24,9 @@ public class Hora {
         this.ocupada = ocupada;
     }
 
+    public Hora() {
+    }
+
     public static List<Hora> crearLista() {
         Hora hora;
         Hora.listaHoras.clear();
@@ -39,7 +42,6 @@ public class Hora {
     }
 
     public String getID() {
-
         return ID;
     }
 

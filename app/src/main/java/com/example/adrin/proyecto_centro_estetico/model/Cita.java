@@ -27,12 +27,14 @@ public class Cita {
         this.fecha = fecha_cita;
     }
 
+    public Cita() {
+    }
+
     public static void setListaCitas(ArrayList<Cita> listaCitas) {
         Cita.listaCitas = listaCitas;
     }
 
     public static ArrayList<Cita> getListaCitas() {
-
         return listaCitas;
     }
 
@@ -41,7 +43,6 @@ public class Cita {
     }
 
     public String getCod_cliente() {
-
         return cod_cliente;
     }
 
@@ -55,7 +56,6 @@ public class Cita {
     }
 
     public String getFecha() {
-
         return fecha;
     }
 
@@ -64,7 +64,6 @@ public class Cita {
     }
 
     public int getHora() {
-
         return hora;
     }
 
@@ -77,7 +76,6 @@ public class Cita {
     }
 
     public String getTratamiento() {
-
         return tratamiento;
     }
 }

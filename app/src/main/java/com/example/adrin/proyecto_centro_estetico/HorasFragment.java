@@ -10,12 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.adrin.proyecto_centro_estetico.model.Hora;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 public class HorasFragment extends Fragment {
@@ -29,16 +23,6 @@ public class HorasFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public HorasFragment() {
-    }
-
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static HorasFragment newInstance(int columnCount) {
-        HorasFragment fragment = new HorasFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override

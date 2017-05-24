@@ -1,6 +1,7 @@
 package com.example.adrin.proyecto_centro_estetico;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,7 +21,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class InicioActivity extends AppCompatActivity {
+public class InicioActivity extends AppCompatActivity implements CitasFragment.OnFragmentCitasListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -89,6 +90,11 @@ public class InicioActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -138,6 +144,14 @@ public class InicioActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    return PlaceholderFragment.newInstance(position + 1);
+                case 1:
+                    return CitasFragment.newInstance("Hola", "Adios");
+                case 2:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 
