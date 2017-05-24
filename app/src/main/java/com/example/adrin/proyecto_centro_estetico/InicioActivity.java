@@ -21,21 +21,12 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class InicioActivity extends AppCompatActivity implements CitasFragment.OnFragmentCitasListener{
+import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+public class InicioActivity extends AppCompatActivity implements CitasFragment.OnFragmentCitasListener, InicioFragment.OnFragmentTratamientoListener{
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     @Override
@@ -91,7 +82,12 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentCitasListener(Uri uri) {
+
+    }
+
+    @Override
+    public void onFragmentTratamientoListener(Tratamiento tratamiento) {
 
     }
 
@@ -146,7 +142,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return InicioFragment.newInstance("Hola", "Adios");
                 case 1:
                     return CitasFragment.newInstance("Hola", "Adios");
                 case 2:

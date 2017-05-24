@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,7 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
+import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,8 +30,11 @@ public class CitasFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private ListAdapter firebaseCitasAdapter;
+
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
+    private FirebaseRecyclerAdapter mAdapter;
 
     private OnFragmentCitasListener mListener;
 
@@ -59,14 +66,32 @@ public class CitasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_citas, container, false);
         //Llamamos al listview del fragmento
-        ListView listView = (ListView) view.findViewById(android.R.id.list);
-        TextView vista = (TextView) view.findViewById(android.R.id.empty);
-        listView.setEmptyView(vista);
+        //ListView listView = (ListView) view.findViewById(android.R.id.list);
+        //TextView vista = (TextView) view.findViewById(android.R.id.empty);
+        //listView.setEmptyView(vista);
 
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
 
-        ListAdapter firebaseCitasAdapter = new FirebaseListAdapter<Cita>(getActivity(), Cita.class, R.layout.fragment_citas_list_item, refCitas) {
+        /////
+        RecyclerView recycler = (RecyclerView) view.findViewById(R.id.list_citas);
+        recycler.setHasFixedSize(true);
+        recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mAdapter = new FirebaseRecyclerAdapter<Cita, CitaHolder>(
+                Cita.class, R.layout.fragment_citas_list_item, CitaHolder.class, refCitas) {
+
+            @Override
+            public void populateViewHolder(CitaHolder citaViewHolder, Cita cita, int position) {
+                citaViewHolder.setTratamiento(cita.getTratamiento());
+                citaViewHolder.setFecha(cita.getFecha() + " a las " + cita.getHora() + ":00");
+            }
+        };
+
+        recycler.setAdapter(mAdapter);
+        /////
+        /*
+        firebaseCitasAdapter = new FirebaseListAdapter<Cita>(getActivity(), Cita.class, R.layout.fragment_citas_list_item, refCitas) {
             @Override
             protected void populateView(View view, Cita cita, int position) {
                 ((TextView) view.findViewById(R.id.textTratamiento)).setText(cita.getTratamiento());
@@ -83,14 +108,8 @@ public class CitasFragment extends Fragment {
 
             }
         });
-
+*/
         return view;
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -111,6 +130,6 @@ public class CitasFragment extends Fragment {
     }
 
     public interface OnFragmentCitasListener {
-        void onFragmentInteraction(Uri uri);
+        void onFragmentCitasListener(Uri uri);
     }
 }
