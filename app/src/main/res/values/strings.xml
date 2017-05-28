@@ -4,11 +4,18 @@
     <string name="btn_resumen_cancelar">Rechazar</string>
     <string name="btn_resumen_aceptar">Confirmar</string>
     <string name="title_activity_inicio">InicioActivity</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Cerrar sesión</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="app_pedir_cita">Elija su cita..</string>
+    <string name="app_pedir_cita">Elija su cita...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_empty_list">Sin citas</string>
+    <string name="title_dialog_borrar">Anular cita</string>
+    <string name="message_dialog_borrar">¿Quiere borrar la cita?</string>
+    <string name="borrar">Borrar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="title_lista_de_tratamientos">Lista de tratamientos</string>
+    <string name="title_informacion">Información</string>
+    <string name="action_llamar">Llamar a la tienda</string>
 </resources>

@@ -25,4 +25,17 @@ public class TratamientoHolder extends RecyclerView.ViewHolder {
         TextView field = (TextView) mView.findViewById(R.id.txt_inicio_nombre);
         field.setText(nombre);
     }
+    public void setDuracion(String duracion) {
+        TextView field = (TextView) mView.findViewById(R.id.txt_inicio_duracion);
+        field.setText(duracion);
+    }
+
+    public void setPrecio(String precio) {
+        TextView field = (TextView) mView.findViewById(R.id.txt_inicio_precio);
+        field.setText(precio);
+    }
+    public void setEsteticista(String esteticista) {
+        TextView field = (TextView) mView.findViewById(R.id.txt_inicio_esteticista);
+        field.setText(esteticista);
+    }
 }

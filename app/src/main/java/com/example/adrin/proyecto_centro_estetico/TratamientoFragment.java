@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -95,8 +99,7 @@ public class TratamientoFragment extends Fragment {
         grupoTratamiento.add("Depilación");
     }
 
-    private void createCollection() {
-        // preparing laptops collection(child)
+    public void createCollection() {
         String[] faciales = {"Higiene facial", "Higiene facial y electro estimulación",
                 "Vitaminas", "Oxigenación", "Maderoterapia Ant-Aging"};
         String[] corporales = {"Maderoterapia", "Masaje de sales", "Tratamiento sudación", "Espalda relajación", "Masaje drenaje linfático"};
@@ -111,23 +114,41 @@ public class TratamientoFragment extends Fragment {
         for (String tratamiento : grupoTratamiento) {
             if (tratamiento.equals("Cuidados faciales")) {
                 loadChild(faciales);
-            } else if (tratamiento.equals("Cuidados corporales"))
+            } else if (tratamiento.equals("Cuidados corporales")) {
                 loadChild(corporales);
-            else if (tratamiento.equals("Maquillaje"))
+            } else if (tratamiento.equals("Maquillaje")) {
                 loadChild(maquillaje);
-            else if (tratamiento.equals("Manos y pies"))
+            } else if (tratamiento.equals("Manos y pies")) {
                 loadChild(manosPies);
-            else if (tratamiento.equals("Pestañas"))
+            } else if (tratamiento.equals("Pestañas")) {
                 loadChild(pestanas);
-            else
+            } else {
                 loadChild(depilacion);
+            }
             tratamientoCollection.put(tratamiento, childList);
         }
+
     }
+
+    /*private void crearTratamietnos(String categoria, String[] hijos) {
+        DatabaseReference dbTratamiento = FirebaseDatabase.getInstance().getReference().child("Tratamiento");
+        Tratamiento tra = new Tratamiento();
+        for (int i = 0; i < hijos.length; i++) {
+            tra.setCategoria(categoria);
+            tra.setNombre(hijos[i]);
+            tra.setDuracion(1);
+            tra.setEsteticista("Laura");
+            tra.setPrecio(15.50);
+            dbTratamiento.push().setValue(tra);
+            //Tratamiento.listaTratamientos.add(tra);
+        }
+
+    }*/
 
     private void loadChild(String[] tipoTratamiento) {
         childList = new ArrayList<>();
-        for (String model : tipoTratamiento)
+        for (String model : tipoTratamiento) {
             childList.add(model);
+        }
     }
 }

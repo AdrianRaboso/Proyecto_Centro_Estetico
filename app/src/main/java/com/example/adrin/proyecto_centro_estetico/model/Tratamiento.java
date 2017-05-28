@@ -1,5 +1,7 @@
 package com.example.adrin.proyecto_centro_estetico.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Adrián on 28/04/2017.
  */
@@ -10,6 +12,7 @@ public class Tratamiento {
     private double precio;
     private String esteticista;
     private int duracion;
+    public static ArrayList<Tratamiento> listaTratamientos = new ArrayList<>();
 
     public Tratamiento() {
 
