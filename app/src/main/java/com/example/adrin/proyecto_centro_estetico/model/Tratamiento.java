@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 
 public class Tratamiento {
+    private String cod_tratamiento;
     private String nombre;
     private String categoria;
     private double precio;
@@ -23,12 +24,21 @@ public class Tratamiento {
         this.categoria = categoria;
     }
 
-    public Tratamiento(String nombre, String categoria, double precio, String esteticista, int duracion) {
+    public Tratamiento(String codtratamiento, String nombre, String categoria, double precio, String esteticista, int duracion) {
+        this.cod_tratamiento = codtratamiento;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
         this.esteticista = esteticista;
         this.duracion = duracion;
+    }
+
+    public void setCod_tratamiento(String cod_tratamiento) {
+        this.cod_tratamiento = cod_tratamiento;
+    }
+
+    public String getCod_tratamiento() {
+        return cod_tratamiento;
     }
 
     public void setNombre(String nombre) {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
 import com.example.adrin.proyecto_centro_estetico.model.Hora;
@@ -37,7 +36,6 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
     private final int CAMBIAR_CITA = 2;
     private final int CANCELAR_CITA = 3;
     private FirebaseDatabase database;
-    private DatabaseReference refHorario;
     private DatabaseReference refCitas;
 
 
@@ -49,7 +47,6 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
         //Referenciamos a la tabla horario
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
-        refHorario = database.getReference("Horario");
         //Cargamos la lista de horario
         Hora.crearLista();
 

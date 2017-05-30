@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -28,6 +31,8 @@ public class TratamientoFragment extends Fragment {
     private ExpandableListView expListView;
     private TratamientosListener listener;
     private ExpandableListAdapter expListAdapter;
+    private FirebaseDatabase database;
+    private DatabaseReference refTratamiento;
 
     public TratamientoFragment() {
         // Required empty public constructor
@@ -39,8 +44,7 @@ public class TratamientoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tratamiento, container, false);
 
         //Generamos la lista de tratamientos
-        createGroupList();
-        createCollection();
+        cargarListaTratamientos();
 
         return view;
     }
@@ -51,8 +55,6 @@ public class TratamientoFragment extends Fragment {
 
         //Inicializamos la coleccion de tratamientos
         expListView = (ExpandableListView) getView().findViewById(R.id.listaTratamientos);
-        expListAdapter = new ExpandableListAdapter(getActivity(), grupoTratamiento, tratamientoCollection);
-        expListView.setAdapter(expListAdapter);
 
         //Listener de la lista desplegable
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -89,7 +91,82 @@ public class TratamientoFragment extends Fragment {
         this.listener = listener;
     }
 
-    private void createGroupList() {
+    public void cargarListaTratamientos() {
+        //Recogemos los datos de la BD
+        database = FirebaseDatabase.getInstance();
+        refTratamiento = database.getReference("Tratamiento");
+        //Recogemos la lista de citas
+        refTratamiento.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //Borramos la lista para que se carguen los datos nuevos
+                Tratamiento.listaTratamientos.clear();
+                for (DataSnapshot tratamientoSnapshot : snapshot.getChildren()) {
+                    String categoria = tratamientoSnapshot.child("categoria").getValue().toString();
+                    String nombre = tratamientoSnapshot.child("nombre").getValue().toString();
+                    String duracionString = tratamientoSnapshot.child("duracion").getValue().toString();
+                    String precioString = tratamientoSnapshot.child("precio").getValue().toString();
+                    String esteticista = tratamientoSnapshot.child("esteticista").getValue().toString();
+                    double precio = Double.parseDouble(precioString);
+                    int duracion = Integer.parseInt(duracionString);
+                    String id = tratamientoSnapshot.getKey();
+
+                    Tratamiento cita = new Tratamiento(id, nombre, categoria, precio, esteticista, duracion);
+                    Tratamiento.listaTratamientos.add(cita);
+                }
+                //Despues de recoger los datos los añadimos al adaptador
+                rellenarGruposYColleccion();
+                expListAdapter = new ExpandableListAdapter(getActivity(), grupoTratamiento, tratamientoCollection);
+                expListView.setAdapter(expListAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("La lectura falló: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void rellenarGruposYColleccion() {
+        grupoTratamiento = new ArrayList<>();
+        tratamientoCollection = new LinkedHashMap<>();
+        String cat = "";
+        //Añadimos los grupos
+        for (Tratamiento tra : Tratamiento.listaTratamientos) {
+            if (!cat.equals(tra.getCategoria())) {
+                grupoTratamiento.add(tra.getCategoria());
+                cat = tra.getCategoria();
+            }
+        }
+        //Añadimos los hijos de cada grupo
+        for (String tratamiento : grupoTratamiento) {
+            if (tratamiento.equals("Cuidados faciales")) {
+                cargarHijos("Cuidados faciales");
+            } else if (tratamiento.equals("Cuidados corporales")) {
+                cargarHijos("Cuidados corporales");
+            } else if (tratamiento.equals("Maquillaje")) {
+                cargarHijos("Maquillaje");
+            } else if (tratamiento.equals("Manos y pies")) {
+                cargarHijos("Manos y pies");
+            } else if (tratamiento.equals("Pestañas")) {
+                cargarHijos("Pestañas");
+            } else {
+                cargarHijos("Depilación");
+            }
+            tratamientoCollection.put(tratamiento, childList);
+        }
+    }
+
+    private void cargarHijos(String tipoTratamiento) {
+        childList = new ArrayList<>();
+        for (Tratamiento tra : Tratamiento.listaTratamientos) {
+            if (tra.getCategoria().equals(tipoTratamiento)) {
+                childList.add(tra.getNombre());
+            }
+        }
+    }
+
+    /*private void createGroupList() {
         grupoTratamiento = new ArrayList<>();
         grupoTratamiento.add("Cuidados faciales");
         grupoTratamiento.add("Cuidados corporales");
@@ -130,7 +207,7 @@ public class TratamientoFragment extends Fragment {
 
     }
 
-    /*private void crearTratamietnos(String categoria, String[] hijos) {
+    private void crearTratamietnos(String categoria, String[] hijos) {
         DatabaseReference dbTratamiento = FirebaseDatabase.getInstance().getReference().child("Tratamiento");
         Tratamiento tra = new Tratamiento();
         for (int i = 0; i < hijos.length; i++) {
@@ -143,12 +220,13 @@ public class TratamientoFragment extends Fragment {
             //Tratamiento.listaTratamientos.add(tra);
         }
 
-    }*/
+    }
+
 
     private void loadChild(String[] tipoTratamiento) {
         childList = new ArrayList<>();
         for (String model : tipoTratamiento) {
             childList.add(model);
         }
-    }
+    }*/
 }
