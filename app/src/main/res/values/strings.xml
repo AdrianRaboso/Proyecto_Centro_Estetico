@@ -18,4 +18,31 @@
     <string name="title_lista_de_tratamientos">Lista de tratamientos</string>
     <string name="title_informacion">Información</string>
     <string name="action_llamar">Llamar a la tienda</string>
+
+    <!--Login-->
+    <string name="titulo">Centro De Estética</string>
+    <string name="correo">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="login">INICIAR SESIÓN</string>
+    <string name="registro">¿Aún no te has registrado? ¡Regístrate!</string>
+    <string name="olvidarContraseña">¿Has olvidado la contraseña?</string>
+    <string name="title_activity_registro">Sign in</string>
+    <string name="confirmarPassword">Confirmar correo</string>
+    <string name="registrar">Registrar</string>
+    <!--String registro y login -->
+    <string name="coincidir_correo">El correo no coincide</string>
+    <string name="error_contraseña_corta">La contraseña debe tener más de 6 caracteres</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="titulo_registro">Registro</string>
 </resources>

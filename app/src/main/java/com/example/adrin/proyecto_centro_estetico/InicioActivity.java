@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -20,25 +21,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
 import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class InicioActivity extends AppCompatActivity implements CitasFragment.OnFragmentCitasListener, InicioFragment.OnFragmentTratamientoListener {
+public class InicioActivity extends AppCompatActivity implements CitasFragment.OnFragmentCitasListener, InicioFragment.OnFragmentTratamientoListener, GoogleApiClient.OnConnectionFailedListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    private FirebaseAuth firebaseAuth;
     private ViewPager mViewPager;
+    private GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
+        //Colocamos la Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
+        // Crea el adaptador que devuelve las 3 paginas
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -57,6 +68,15 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             }
         });
 
+        //Creamos el objeto de autentificacion
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -71,6 +91,17 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            firebaseAuth.signOut();
+            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                @Override
+                public void onResult(@NonNull Status status) {
+                    if (status.isSuccess()) {
+                        goLoginScreen();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No se pudo cerrar sesion", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             return true;
         } else if (id == R.id.action_llamar) {
             //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
@@ -91,6 +122,12 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
         return super.onOptionsItemSelected(item);
     }
 
+    private void goLoginScreen() {
+        Intent i = new Intent(this, LoginActivity.class);
+        i.addFlags(i.FLAG_ACTIVITY_CLEAR_TOP | i.FLAG_ACTIVITY_CLEAR_TASK | i.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }
+
     @Override
     public void onFragmentCitasListener(Cita cita) {
 
@@ -98,6 +135,11 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
 
     @Override
     public void onFragmentTratamientoListener(Tratamiento tratamiento) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contenedor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_theme"
+    android:gravity="center"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    tools:context="com.example.adrin.proyecto_centro_estetico.LoginActivity">
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="41dp"
+        android:text="@string/titulo"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/emailText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/titulo"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="@string/correo"
+        android:inputType="textEmailAddress"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textColorHint="@android:color/background_light"
+        android:typeface="normal" />
+
+    <EditText
+        android:id="@+id/passwordText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/emailText"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textColorHint="@android:color/background_light"
+        android:typeface="normal" />
+
+    <Button
+        android:id="@+id/botRegistrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="44dp"
+        android:background="@android:drawable/toast_frame"
+        android:backgroundTint="@color/white"
+        android:fontFamily="casual"
+        android:text="@string/login"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/botGoogle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botRegistrar"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="26dp"
+        android:background="@android:drawable/toast_frame"
+        android:backgroundTint="@color/white"
+        android:padding="4dp"
+        tools:mockup_opacity="1" />
+    <!--android:background="@color/common_google_signin_btn_text_dark_default"-->
+
+    <Button
+        android:id="@+id/registrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botGoogle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@android:color/transparent"
+        android:text="@string/registro"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/olvidarPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp"
+        android:background="@android:color/transparent"
+        android:text="@string/olvidarContraseña"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</RelativeLayout>

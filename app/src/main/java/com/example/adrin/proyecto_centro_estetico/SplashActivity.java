@@ -3,8 +3,6 @@ package com.example.adrin.proyecto_centro_estetico;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -36,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 // Cuando pasen los 3 segundos, pasamos a la actividad principal de la aplicación
-                Intent intent = new Intent(SplashActivity.this, InicioActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -22,6 +22,8 @@ import com.example.adrin.proyecto_centro_estetico.model.Cita;
 import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -72,11 +74,14 @@ public class CitasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Sacamos el usuario que esta logueado
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_citas, container, false);
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
-        final Query citasOrdenadas = refCitas.orderByChild("fecha");
+        final Query citasOrdenadas = refCitas.orderByChild("cod_cliente").startAt(user.getEmail());
 
         recycler = (RecyclerView) view.findViewById(R.id.list_citas);
         recycler.setHasFixedSize(true);

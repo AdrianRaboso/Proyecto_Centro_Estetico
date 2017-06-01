@@ -5,7 +5,11 @@
     <!-- Nos permite conectarnos a una base de datos remota, en nuestro caso PostgreSQL -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +29,10 @@
         <activity
             android:name=".InicioActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <!--LOGIN-->
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistroUser" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">
@@ -34,6 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

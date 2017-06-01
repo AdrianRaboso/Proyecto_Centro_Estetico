@@ -25,7 +25,6 @@ import me.drozdzynski.library.steppers.SteppersItem;
 import me.drozdzynski.library.steppers.SteppersView;
 
 public class PedirCitaActivity extends AppCompatActivity implements TratamientoFragment.TratamientosListener, FechaFragment.FechaListener, HorasFragment.OnListFragmentInteractionListener {
-    //Create steps list
     private ArrayList<SteppersItem> steps = new ArrayList<>();
     private Bundle datosCita = new Bundle();
     private TratamientoFragment tratamiento;
@@ -37,7 +36,6 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
     private final int CANCELAR_CITA = 3;
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#0077ff</color>
     <color name="colorAccent">#9c00b4</color>
     <color name="white">#ffffff</color>
+    <color name="AmarilloClaro">#fff02e</color>
+    <color name="AmarilloDorado">#ffcb2b</color>
+    <color name="NaranjaOcre">#ffa60f</color>
+    <color name="AmarilloPollo">#f8f090</color>
+    <color name="verderEspeso">#569250</color>
 </resources>

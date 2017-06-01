@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
 import com.example.adrin.proyecto_centro_estetico.model.Hora;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -69,6 +71,10 @@ public class ResumenCitaActivity extends AppCompatActivity {
                 setResult(ACEPTAR_CITA, returnIntent);
                 //Añadimos la cita a la base de datos
                 Cita datosCita = new Cita(tratamiento.getText().toString(), fecha.getText().toString(), getIntent().getExtras().getInt("hora"));
+                //Sacamos el usuario que esta logueado
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                datosCita.setCod_cliente(user.getEmail());
                 refCitas.push().setValue(datosCita);
                 finish();
             }
