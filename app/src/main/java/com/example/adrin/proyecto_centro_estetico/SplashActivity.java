@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         txtVersion = (TextView) findViewById(R.id.txt_version);
         txtTitulo = (TextView) findViewById(R.id.txt_titulo);
         txtVersion.setText("v. " + getVersion());
-        txtTitulo.setText("¡Bienvenido a tu centro estético!");
+        txtTitulo.setText(R.string.txt_bienvenida);
 
         new Handler().postDelayed(new Runnable() {
             public void run() {

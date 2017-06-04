@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Centro Estético</string>
+    <string name="app_name">Avenue Beauty</string>
     <string name="app_resumen_cita">Datos de la cita</string>
     <string name="btn_resumen_cancelar">Rechazar</string>
     <string name="btn_resumen_aceptar">Confirmar</string>
@@ -7,6 +7,8 @@
     <string name="action_settings">Cerrar sesión</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="app_pedir_cita">Elija su cita...</string>
+    <string name="txt_bienvenida">¡Bienvenido a Avenue Beauty!</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -45,4 +47,7 @@
         completions."
     </string>
     <string name="titulo_registro">Registro</string>
+    <string name="sin_citas">No tienes citas</string>
+    <string name="action_preferencias">Tu cuenta</string>
+    <string name="btn_elegir">Pedir cita</string>
 </resources>

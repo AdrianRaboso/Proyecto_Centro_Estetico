@@ -13,6 +13,8 @@ public class Tratamiento {
     private double precio;
     private String esteticista;
     private int duracion;
+    private String imagen;
+    private String descripcion;
     public static ArrayList<Tratamiento> listaTratamientos = new ArrayList<>();
 
     public Tratamiento() {
@@ -31,6 +33,23 @@ public class Tratamiento {
         this.precio = precio;
         this.esteticista = esteticista;
         this.duracion = duracion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getDescripcion() {
+
+        return descripcion;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public void setCod_tratamiento(String cod_tratamiento) {

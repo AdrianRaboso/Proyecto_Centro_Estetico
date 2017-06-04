@@ -15,15 +15,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
+import com.example.adrin.proyecto_centro_estetico.model.Oferta;
 import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,12 +32,13 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class InicioActivity extends AppCompatActivity implements CitasFragment.OnFragmentCitasListener, InicioFragment.OnFragmentTratamientoListener, GoogleApiClient.OnConnectionFailedListener {
+public class InicioActivity extends AppCompatActivity implements CitasFragment.OnFragmentCitasListener, InicioFragment.OnInicioListener, OfertasFragment.OnOfertasInteractionListener, GoogleApiClient.OnConnectionFailedListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private FirebaseAuth firebaseAuth;
     private ViewPager mViewPager;
     private GoogleApiClient googleApiClient;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +55,12 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +91,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_cerrar_sesion) {
             firebaseAuth.signOut();
             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                 @Override
@@ -117,8 +118,9 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
                 Snackbar.make(getCurrentFocus(), "La aplicación no tiene permisos para hacer llamadas", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
+        } else if (id == R.id.action_preferencias) {
+            //Accedemos a las preferencias
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -138,50 +140,17 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
 
     }
 
+
+    @Override
+    public void onOfertasInteraction(Oferta oferta) {
+
+    }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_inicio, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -190,17 +159,16 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return InicioFragment.newInstance("Hola", "Adios");
+                    return InicioFragment.newInstance();
                 case 1:
-                    return CitasFragment.newInstance("Hola", "Adios");
+                    return CitasFragment.newInstance();
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return OfertasFragment.newInstance();
+                default:
+                    return InicioFragment.newInstance();
             }
-            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
@@ -213,11 +181,11 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "INICIO";
+                    return "TRATAMIENTOS";
                 case 1:
                     return "TUS CITAS";
                 case 2:
-                    return "CUENTA";
+                    return "OFERTAS";
             }
             return null;
         }

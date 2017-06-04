@@ -5,6 +5,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorFondo"
     android:fitsSystemWindows="true"
     tools:context="com.example.adrin.proyecto_centro_estetico.InicioActivity">
 
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabIndicatorHeight="4dp"/>
+            app:tabIndicatorHeight="4dp" />
 
     </android.support.design.widget.AppBarLayout>
 

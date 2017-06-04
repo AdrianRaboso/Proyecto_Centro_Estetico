@@ -32,16 +32,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CitasFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     private ListAdapter firebaseCitasAdapter;
     private LinearLayoutManager layoutManager;
     private RecyclerView recycler;
+    private TextView empty;
 
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
@@ -53,22 +48,14 @@ public class CitasFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static CitasFragment newInstance(String param1, String param2) {
+    public static CitasFragment newInstance() {
         CitasFragment fragment = new CitasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -81,9 +68,12 @@ public class CitasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_citas, container, false);
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
-        final Query citasOrdenadas = refCitas.orderByChild("cod_cliente").startAt(user.getEmail());
+        final Query citasOrdenadas = refCitas.orderByChild("cod_cliente").equalTo(user.getEmail());
 
         recycler = (RecyclerView) view.findViewById(R.id.list_citas);
+        empty = (TextView) view.findViewById(android.R.id.empty);
+        empty = (TextView) view.findViewById(R.id.empty_view);
+
         recycler.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recycler.setLayoutManager(layoutManager);
@@ -93,7 +83,6 @@ public class CitasFragment extends Fragment {
 
             @Override
             public void populateViewHolder(CitaHolder citaViewHolder, Cita cita, int position) {
-                final int pos = position;
                 //Sacamos la fecha de la cita y la convertimos al formato Date
                 String fecha[] = cita.getFecha().split("/");
                 int anio = Integer.parseInt(fecha[0]);
@@ -127,6 +116,7 @@ public class CitasFragment extends Fragment {
         recycler.setAdapter(mAdapter);
         return view;
     }
+
 
     @Override
     public void onAttach(Context context) {
