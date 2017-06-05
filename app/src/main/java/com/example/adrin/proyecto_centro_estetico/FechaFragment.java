@@ -12,9 +12,6 @@ import android.widget.CalendarView;
 import java.util.Date;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FechaFragment extends Fragment {
 
     private CalendarView fecha;

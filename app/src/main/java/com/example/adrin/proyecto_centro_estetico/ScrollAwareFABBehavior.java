@@ -1,14 +1,11 @@
 package com.example.adrin.proyecto_centro_estetico;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListView;
 
 /**
  * Created by Adrián on 03/06/2017.
@@ -42,3 +39,4 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
     }
 
 }
+

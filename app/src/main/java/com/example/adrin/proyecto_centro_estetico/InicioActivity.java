@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -103,6 +104,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
                     }
                 }
             });
+            finish();
             return true;
         } else if (id == R.id.action_llamar) {
             //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
@@ -136,10 +138,11 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
     }
 
     @Override
-    public void onFragmentTratamientoListener(Tratamiento tratamiento) {
-
+    public void onInicioListener(String nombreTratamiento) {
+        Intent cita = new Intent(InicioActivity.this, PedirCitaActivity.class);
+        cita.putExtra("nombreTratamiento", nombreTratamiento);
+        startActivity(cita);
     }
-
 
     @Override
     public void onOfertasInteraction(Oferta oferta) {

@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!--Sirve para acceder al calendario del movil-->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +32,11 @@
         <activity
             android:name=".InicioActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <!--LOGIN-->
+        <activity
+            android:name=".DescripcionActivity"
+            android:label="@string/app_descripcion"
+            android:theme="@style/AppTheme.DialogPers" />
+        <!-- LOGIN -->
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistroUser" />

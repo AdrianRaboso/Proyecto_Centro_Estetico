@@ -6,9 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_theme"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:gravity="center"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     tools:context="com.example.adrin.proyecto_centro_estetico.LoginActivity">
+
 
     <TextView
         android:id="@+id/titulo"
@@ -44,6 +47,8 @@
             android:fontFamily="sans-serif"
             android:hint="@string/correo"
             android:inputType="textEmailAddress"
+            android:nextFocusLeft="@id/emailText"
+            android:nextFocusUp="@id/emailText"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textColorLink="@color/colorAccent"

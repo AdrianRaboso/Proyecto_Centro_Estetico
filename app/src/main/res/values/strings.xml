@@ -50,4 +50,6 @@
     <string name="sin_citas">No tienes citas</string>
     <string name="action_preferencias">Tu cuenta</string>
     <string name="btn_elegir">Pedir cita</string>
+    <string name="btn_descripcion_cerrar">Cerrar</string>
+    <string name="app_descripcion">Descripción del tratamiento</string>
 </resources>

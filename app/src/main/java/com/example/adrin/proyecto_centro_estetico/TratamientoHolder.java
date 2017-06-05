@@ -1,6 +1,7 @@
 package com.example.adrin.proyecto_centro_estetico;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -62,22 +63,25 @@ public class TratamientoHolder extends RecyclerView.ViewHolder {
                 .into(field);
     }
 
-    public void infoClick(String descripcion){
+    public void infoClick(final String descripcion){
         ImageButton info = (ImageButton)mView.findViewById(R.id.info);
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Mostramos el activity de la descripcion del tratamiento
+                Intent descripcionIntent = new Intent(view.getContext(), DescripcionActivity.class);
+                descripcionIntent.putExtra("descripcion", descripcion);
+                view.getContext().startActivity(descripcionIntent);
             }
         });
     }
 
-    public void citaClick(){
+    public void citaClick(final InicioFragment.OnInicioListener mListener, final String nombreTratamiento){
         Button pedirCita = (Button)mView.findViewById(R.id.cita);
         pedirCita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mView.getContext(), "cita", Toast.LENGTH_SHORT).show();
+                mListener.onInicioListener(nombreTratamiento);
             }
         });
     }

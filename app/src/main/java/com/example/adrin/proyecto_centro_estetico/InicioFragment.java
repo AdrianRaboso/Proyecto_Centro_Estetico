@@ -50,7 +50,7 @@ public class InicioFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inicio_tratamiento, container, false);
@@ -75,7 +75,7 @@ public class InicioFragment extends Fragment {
                 tratamientoViewHolder.setEsteticista("Esteticista: " + tratamiento.getEsteticista());
                 tratamientoViewHolder.setDuracion(String.valueOf(tratamiento.getDuracion()) + " hora");
                 tratamientoViewHolder.infoClick(tratamiento.getDescripcion());
-                tratamientoViewHolder.citaClick();
+                tratamientoViewHolder.citaClick(mListener, tratamiento.getNombre());
 
                 StorageReference imgTratamientoRef = storageRef.child(CARPETA_IMAGENES + SLASH + tratamiento.getImagen());
 
@@ -108,11 +108,6 @@ public class InicioFragment extends Fragment {
         mAdapter.cleanup();
     }
 
-    public void onButtonPressed(Tratamiento tratamiento) {
-        if (mListener != null) {
-            mListener.onFragmentTratamientoListener(tratamiento);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -132,6 +127,6 @@ public class InicioFragment extends Fragment {
     }
 
     public interface OnInicioListener {
-        void onFragmentTratamientoListener(Tratamiento tratamiento);
+        void onInicioListener(String nombreTratamiento);
     }
 }

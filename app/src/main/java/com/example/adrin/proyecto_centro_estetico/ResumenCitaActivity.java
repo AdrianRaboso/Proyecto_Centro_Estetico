@@ -3,6 +3,7 @@ package com.example.adrin.proyecto_centro_estetico;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,14 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
-import com.example.adrin.proyecto_centro_estetico.model.Hora;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.GregorianCalendar;
+
 
 public class ResumenCitaActivity extends AppCompatActivity {
 
@@ -40,6 +38,7 @@ public class ResumenCitaActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
 
+        //Ponemos la barra
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -71,12 +70,11 @@ public class ResumenCitaActivity extends AppCompatActivity {
                 setResult(ACEPTAR_CITA, returnIntent);
                 //Añadimos la cita a la base de datos
                 Cita datosCita = new Cita(tratamiento.getText().toString(), fecha.getText().toString(), getIntent().getExtras().getInt("hora"));
-                //Sacamos el usuario que esta logueado
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                datosCita.setCod_cliente(user.getEmail());
+                datosCita.setCod_cliente(Utils.currentUser());
                 refCitas.push().setValue(datosCita);
-                finish();
+
+                //Añadimos la cita al calendario
+                addCitaCalendario();
             }
         });
 
@@ -107,4 +105,67 @@ public class ResumenCitaActivity extends AppCompatActivity {
         });
     }
 
+    private void addCitaCalendario() {
+        AlertDialog.Builder calendarDialog = new AlertDialog.Builder(ResumenCitaActivity.this);
+        calendarDialog.setTitle("Añadir evento");
+        calendarDialog.setMessage("¿Quieres añadir además el evento al calendario de tu dispositivo?");
+        calendarDialog.setPositiveButton("SÍ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Ponemos la cita en el calendario
+                Intent calIntent = new Intent(Intent.ACTION_INSERT);
+                calIntent.setType("vnd.android.cursor.item/event");
+                calIntent.putExtra(CalendarContract.Events.TITLE, "Cita estética para " + tratamiento.getText());
+                calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Avenue Beauty");
+                //calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "A Pig Roast on the Beach");
+                int[] fechaInt = sacarFecha(fecha.getText().toString());
+                GregorianCalendar calDate = new GregorianCalendar(fechaInt[0], fechaInt[1], fechaInt[2]);
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                        calDate.getTimeInMillis());
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                        calDate.getTimeInMillis());
+                startActivityForResult(calIntent, 1);
+            }
+        });
+        calendarDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent returnIntent = new Intent();
+                setResult(CANCELAR_CITA, returnIntent);
+                finish();//Cerramos la vista resumen y volvemos a la anterior
+            }
+        });
+        calendarDialog.show();
+
+        //Enviamos un mensaje al centro de belleza
+        String emailSubject = "Cita reservada";
+        String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + fecha.getText().toString() + " y hora " + hora.getText().toString() + ", desea un tratamiento de " + tratamiento.getText().toString();
+        Utils.crearMensaje(emailSubject, emailBody);
+    }
+
+    private int[] sacarFecha(String fechaString) {
+        int[] fechaInt = new int[3];
+        char[] arrayChar = fechaString.toCharArray();
+        String f = "";
+        int cont = 0;
+        for (int i = 0; i < arrayChar.length; i++) {
+            if (arrayChar[i] == '/') {
+                fechaInt[cont] = Integer.parseInt(f);
+                f = "";
+                cont++;
+            } else {
+                f = f + arrayChar[i];
+            }
+        }
+        fechaInt[cont] = Integer.parseInt(f);
+        return fechaInt;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Intent returnIntent = new Intent();
+        setResult(CANCELAR_CITA, returnIntent);
+        finish();//Cerramos la vista resumen y volvemos a la anterior
+    }
 }

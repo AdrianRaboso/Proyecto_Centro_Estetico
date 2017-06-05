@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorFondo"
     android:fitsSystemWindows="true"
+    app:layout_behavior="com.example.adrin.proyecto_centro_estetico.ScrollAwareFABBehavior"
     tools:context="com.example.adrin.proyecto_centro_estetico.InicioActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -50,6 +51,8 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@id/container"
+        app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_cita" />
 
 </android.support.design.widget.CoordinatorLayout>

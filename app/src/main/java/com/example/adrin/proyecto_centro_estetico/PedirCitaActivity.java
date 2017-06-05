@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
 import com.example.adrin.proyecto_centro_estetico.model.Hora;
@@ -36,6 +37,7 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
     private final int CANCELAR_CITA = 3;
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
+    private boolean isSeleccionado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,14 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
         //Referenciamos a la tabla horario
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
+
         //Cargamos la lista de horario
         Hora.crearLista();
+
+        //Averiguamos si nos envian datos
+        if (getIntent().getExtras() != null) {
+            isSeleccionado = true;
+        }
 
         //Recogemos la lista de citas
         refCitas.addValueEventListener(new ValueEventListener() {
@@ -101,7 +109,7 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
             @Override
             public void onChangeStep(int position, SteppersItem activeStep) {
                 // Si hay elegido ya la fecha rellenamos el horario de ese dia
-                if (position == 2) {
+                if (activeStep.getLabel().equals("Por último, seleccione la hora")) {
                     for (Cita cita : Cita.listaCitas) {
                         //Si la fecha de la cita actual coincide con las que ya estan hechas guardamos la hora
                         if (datosCita.get("fecha").equals(cita.getFecha())) {
@@ -129,12 +137,19 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
     private void crearPasos() {
         //Paso 1: Elegir tratamiento
         SteppersItem stepFirst = new SteppersItem();
-        stepFirst.setLabel("Elija su tratamiento favorito");
+        stepFirst.setLabel("Elija el tratamiento que desee");
         tratamiento = new TratamientoFragment();
         tratamiento.setTratamientoListener(this);
         stepFirst.setFragment(tratamiento);
-        stepFirst.setPositiveButtonEnable(false);
-        steps.add(stepFirst);
+        //Si viene de elegir el tratamiento desde la lista
+        if (isSeleccionado) {
+            String nombreTratamiento = getIntent().getExtras().get("nombreTratamiento").toString();
+            datosCita.putString("tratamiento", nombreTratamiento);
+            Toast.makeText(this, "¡Has elegido " + nombreTratamiento + "!", Toast.LENGTH_SHORT).show();
+        } else {
+            stepFirst.setPositiveButtonEnable(false);
+            steps.add(stepFirst);
+        }
 
         //Paso 2: Elegir Fecha
         SteppersItem stepTwo = new SteppersItem();
@@ -177,24 +192,36 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
 
     @Override
     public void onFechaSeleccionado(int y, int m, int d) {
+        SteppersItem paso;
+        if (isSeleccionado) {
+            paso = steps.get(0);
+        } else {
+            paso = steps.get(1);
+        }
         String fechaString = y + "/" + m + "/" + d;
         Date fechaElegida = new Date(y, m, d);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaElegida);
         int diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
         if (diaSemana != 1 && diaSemana != 2) {//Si el dia elegido no es fin de semana
-            steps.get(1).setPositiveButtonEnable(true);
+            paso.setPositiveButtonEnable(true);
             datosCita.putString("fecha", fechaString);
         } else {
             Snackbar.make(getCurrentFocus(), "¡Ese día no trabajamos, lo sentimos!", Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
-            steps.get(1).setPositiveButtonEnable(false);
+            paso.setPositiveButtonEnable(false);
         }
     }
 
     @Override
     public void onListFragmentInteraction(Hora item) {
-        steps.get(2).setPositiveButtonEnable(true);
+        SteppersItem paso;
+        if (isSeleccionado) {
+            paso = steps.get(1);
+        } else {
+            paso = steps.get(2);
+        }
+        paso.setPositiveButtonEnable(true);
         datosCita.putInt("hora", item.getHora());
     }
 }

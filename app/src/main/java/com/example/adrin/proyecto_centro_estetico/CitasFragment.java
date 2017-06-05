@@ -61,14 +61,11 @@ public class CitasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //Sacamos el usuario que esta logueado
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_citas, container, false);
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
-        final Query citasOrdenadas = refCitas.orderByChild("cod_cliente").equalTo(user.getEmail());
+        final Query citasOrdenadas = refCitas.orderByChild("cod_cliente").equalTo(Utils.currentUser());
 
         recycler = (RecyclerView) view.findViewById(R.id.list_citas);
         empty = (TextView) view.findViewById(android.R.id.empty);
@@ -82,7 +79,7 @@ public class CitasFragment extends Fragment {
                 Cita.class, R.layout.fragment_citas_list_item, CitaHolder.class, citasOrdenadas) {
 
             @Override
-            public void populateViewHolder(CitaHolder citaViewHolder, Cita cita, int position) {
+            public void populateViewHolder(CitaHolder citaViewHolder, final Cita cita, int position) {
                 //Sacamos la fecha de la cita y la convertimos al formato Date
                 String fecha[] = cita.getFecha().split("/");
                 int anio = Integer.parseInt(fecha[0]);
@@ -103,7 +100,7 @@ public class CitasFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             //Preguntamos si desea borrar el elemento de la lista
-                            crearDialogoBorrar(refCita);
+                            crearDialogoBorrar(refCita, cita);
                         }
                     });
                 } else {
@@ -139,7 +136,7 @@ public class CitasFragment extends Fragment {
         void onFragmentCitasListener(Cita cita);
     }
 
-    public void crearDialogoBorrar(final DatabaseReference ref) {
+    public void crearDialogoBorrar(final DatabaseReference ref, final Cita cita) {
         AlertDialog.Builder mensajeCambiarClave = new AlertDialog.Builder(getActivity());
         mensajeCambiarClave.setTitle(R.string.title_dialog_borrar);
         mensajeCambiarClave.setMessage(R.string.message_dialog_borrar);
@@ -147,6 +144,10 @@ public class CitasFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ref.removeValue();
+                //Enviamos un mensaje al centro de belleza
+                String emailSubject = "Cita cancelada";
+                String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + cita.getFecha() + " y hora " + cita.getHora() + ", para el tratamiento " + cita.getTratamiento() + " ha sido cancelada";
+                Utils.crearMensaje(emailSubject, emailBody);
             }
         });
         mensajeCambiarClave.setNegativeButton(R.string.cancelar, null);

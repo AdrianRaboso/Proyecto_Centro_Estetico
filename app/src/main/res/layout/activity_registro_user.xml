@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contenedor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_theme"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     tools:context="com.example.adrin.proyecto_centro_estetico.LoginActivity">
 
@@ -12,19 +15,22 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="41dp"
         android:text="@string/titulo_registro"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="36sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/botRegistrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/botCancelar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="15dp"
         android:background="@android:drawable/toast_frame"
         android:backgroundTint="@color/white"
@@ -32,68 +38,111 @@
         android:text="@string/registrar"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="30dp"
-        android:layout_above="@+id/botCancelar"
-        android:layout_centerHorizontal="true" />
+        android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/correo"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_correo_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/confirmarCorreo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="54dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="@string/correo"
-        android:inputType="textEmailAddress"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
-        android:textSize="18sp"
-        android:typeface="sans" />
-
-    <EditText
-        android:id="@+id/confirmarCorreo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/password"
+        android:layout_above="@+id/til_rep_correo_registro"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="47dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="@string/confirmarPassword"
-        android:inputType="textEmailAddress"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
-        android:textSize="18sp"
-        android:typeface="sans" />
+        android:layout_marginBottom="13dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:hintTextAppearance="@color/white">
 
-    <EditText
-        android:id="@+id/password"
+        <EditText
+            android:id="@+id/correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/confirmarCorreo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableEnd="@android:drawable/ic_dialog_email"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="@string/correo"
+            android:inputType="textEmailAddress"
+            android:nextFocusLeft="@id/correo"
+            android:nextFocusUp="@id/correo"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="@android:color/background_light"
+            android:textSize="18sp"
+            android:typeface="sans" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_rep_correo_registro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/til_rep_pass_registro"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="11dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:hintTextAppearance="@color/white">
+
+        <EditText
+            android:id="@+id/confirmarCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/password"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableEnd="@android:drawable/ic_dialog_email"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="@string/confirmarPassword"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="@android:color/background_light"
+            android:textSize="18sp"
+            android:typeface="sans" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_rep_pass_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/botRegistrar"
-        android:layout_marginBottom="33dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
-        android:textSize="18sp"
-        android:typeface="sans"
-        android:layout_alignEnd="@+id/confirmarCorreo"
-        android:layout_alignStart="@+id/confirmarCorreo" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:hintTextAppearance="@color/white">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/botRegistrar"
+            android:layout_alignEnd="@+id/confirmarCorreo"
+            android:layout_alignStart="@+id/confirmarCorreo"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableEnd="@android:drawable/ic_lock_idle_lock"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="@android:color/background_light"
+            android:textSize="18sp"
+            android:typeface="sans" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/botCancelar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/botRegistrar"
+        android:layout_marginBottom="41dp"
         android:layout_marginRight="15dp"
         android:background="@android:drawable/toast_frame"
         android:backgroundTint="@color/white"
@@ -101,10 +150,7 @@
         android:text="@string/cancelar"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/botRegistrar"
-        android:layout_marginBottom="41dp" />
+        android:textStyle="bold" />
 
 </RelativeLayout>
 
