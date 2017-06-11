@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="300dp"
     android:orientation="vertical"
     tools:context="com.example.adrin.proyecto_centro_estetico.DescripcionActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_descripcion"
-        android:layout_width="388dp"
-        android:layout_height="61dp"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="-1dp"
         android:background="@color/colorPrimary"
@@ -35,8 +35,8 @@
                 android:id="@+id/txt_descripcion_tra"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:fontFamily="casual"
+                android:padding="10dp"
                 android:text="TextView"
                 android:textAllCaps="false"
                 android:textSize="18sp" />

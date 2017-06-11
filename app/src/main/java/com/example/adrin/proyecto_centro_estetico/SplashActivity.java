@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class SplashActivity extends AppCompatActivity {
 
     // Duración en milisegundos que se mostrará el splash
-    private final int DURACION_SPLASH = 3000;
+    private final int DURACION_SPLASH = 2500;
     private ProgressBar bar;
     private TextView txtVersion;
     private TextView txtTitulo;
@@ -23,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         //Ponemos fondo de pantalla al splahs
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.splash_theme));
         bar = (ProgressBar) findViewById(R.id.barraProgreso);

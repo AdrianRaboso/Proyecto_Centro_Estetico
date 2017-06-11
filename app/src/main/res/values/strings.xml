@@ -51,5 +51,109 @@
     <string name="action_preferencias">Tu cuenta</string>
     <string name="btn_elegir">Pedir cita</string>
     <string name="btn_descripcion_cerrar">Cerrar</string>
-    <string name="app_descripcion">Descripción del tratamiento</string>
+    <string name="app_descripcion">Información</string>
+    <string name="action_config">Configuración</string>
+    <string name="title_activity_configuracion">Configuración</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="list_categoria_entry_values">
+        <item>Cuidados faciales</item>
+        <item>Cuidados corporales</item>
+        <item>Maquillaje</item>
+        <item>Manos y pies</item>
+        <item>Pestañas</item>
+        <item>Depilación</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="category_creacion">ADMINISTRACIÓN</string>
+    <string name="config_add_tratamiento">Crear nuevo tratamiento</string>
+    <string name="congif_summary_add">Añade un nuevo tratamiento a tu lista</string>
+    <string name="config_modify_tratamiento">Modificar tratamiento</string>
+    <string name="congif_summary_modify">Modifique los datos de cualquiera de sus servicios</string>
+    <string name="config_delete_tratamiento">Borrar tratamiento</string>
+    <string name="congif_summary_delete">Borre los tratamiento que no quiera más en su app</string>
+    <string name="category_otros">OTRAS OPCIONES</string>
+    <string name="summary_envio_mail">Permite recibir mensaje por correo cada vez que realizen o cancelen una cita</string>
+    <string name="title_config_envio_mail">Confirmar citas</string>
+    <string name="app_config">Configuración</string>
+    <string name="hint_nombre_crear">Nombre</string>
+    <string name="hint_categoria_crear">Categoría</string>
+    <string name="hint_descripcion_crear">Descripcion</string>
+    <string name="hint_esteticista_crear">Nombre de la esteticista</string>
+    <string name="hint_precio_crear">Precio</string>
+    <string name="app_crear_tratamiento">Nuevo tratamiento</string>
+    <string name="tn_seleccion_imagen">Seleccione una imagen...</string>
+    <string name="txt_cargando">Subiendo tratamiento...</string>
+    <string name="app_borrar_tratamiento">Borrar tratamiento</string>
+    <string name="txt_mensaje_borrar">Seleccione el tratamiento que quiere borrar:</string>
 </resources>

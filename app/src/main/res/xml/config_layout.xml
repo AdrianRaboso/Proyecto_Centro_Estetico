@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/category_creacion">
+        <Preference
+            android:key="add_tratamiento"
+            android:summary="@string/congif_summary_add"
+            android:title="@string/config_add_tratamiento" />
+        <Preference
+            android:key="modify_tratamiento"
+            android:summary="@string/congif_summary_modify"
+            android:title="@string/config_modify_tratamiento" />
+        <Preference
+            android:key="delete_tratamiento"
+            android:summary="@string/congif_summary_delete"
+            android:title="@string/config_delete_tratamiento" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/category_otros">
+        <SwitchPreference
+            android:key="config_envia_mail"
+            android:summary="@string/summary_envio_mail"
+            android:title="@string/title_config_envio_mail" />
+    </PreferenceCategory>
+</PreferenceScreen>

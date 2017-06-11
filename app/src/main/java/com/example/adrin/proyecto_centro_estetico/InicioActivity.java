@@ -1,5 +1,6 @@
 package com.example.adrin.proyecto_centro_estetico;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -40,6 +41,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
     private ViewPager mViewPager;
     private GoogleApiClient googleApiClient;
     private FloatingActionButton fab;
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,18 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        //Sacamos al propietario y al usuario de la app
+        user = Utils.currentUser();
+
+        if (Utils.PROPIETARIO.equals(user)) {
+            menu.setGroupVisible(R.id.menu_config_group, true);
+        }else{
+            menu.setGroupVisible(R.id.menu_config_group, false);
+        }
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,7 +120,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             });
             finish();
             return true;
-        } else if (id == R.id.action_llamar) {
+        } else if (id == R.id.action_llamar && Utils.PROPIETARIO.equals(Utils.currentUser())) {
             //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 12);
@@ -122,6 +136,10 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             }
         } else if (id == R.id.action_preferencias) {
             //Accedemos a las preferencias
+        }else if (id == R.id.action_config) {
+            //Accedemos a las preferencias de propietario
+            Intent config = new Intent(InicioActivity.this, ConfigActivity.class);
+            startActivity(config);
         }
         return super.onOptionsItemSelected(item);
     }

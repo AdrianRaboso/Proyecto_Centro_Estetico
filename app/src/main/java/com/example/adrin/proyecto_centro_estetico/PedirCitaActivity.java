@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
@@ -44,6 +45,12 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedir_cita);
 
+        //Colocamos el actionBar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         //Referenciamos a la tabla horario
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
@@ -79,10 +86,6 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
                 System.out.println("La lectura falló: " + databaseError.getMessage());
             }
         });
-
-        //Colocamos el actionBar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         //Setup config for SteppersView
         SteppersView.Config steppersViewConfig = new SteppersView.Config();
@@ -132,6 +135,15 @@ public class PedirCitaActivity extends AppCompatActivity implements TratamientoF
         crearPasos();
         steppersView.setItems(steps);
         steppersView.build();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void crearPasos() {

@@ -16,6 +16,7 @@ public class Tratamiento {
     private String imagen;
     private String descripcion;
     public static ArrayList<Tratamiento> listaTratamientos = new ArrayList<>();
+    public static ArrayList<Tratamiento> listaIdTratamientos = new ArrayList<>();
 
     public Tratamiento() {
 
@@ -26,6 +27,10 @@ public class Tratamiento {
         this.categoria = categoria;
     }
 
+    public Tratamiento(String cod_tratamiento) {
+        this.cod_tratamiento = cod_tratamiento;
+    }
+
     public Tratamiento(String codtratamiento, String nombre, String categoria, double precio, String esteticista, int duracion) {
         this.cod_tratamiento = codtratamiento;
         this.nombre = nombre;
@@ -33,6 +38,16 @@ public class Tratamiento {
         this.precio = precio;
         this.esteticista = esteticista;
         this.duracion = duracion;
+    }
+
+    public Tratamiento(String nombre, String categoria, double precio, String esteticista, int duracion, String imagen, String descripcion) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.esteticista = esteticista;
+        this.duracion = duracion;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
     }
 
     public void setDescripcion(String descripcion) {

@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorFondo"
     android:fitsSystemWindows="true"
-    app:layout_behavior="com.example.adrin.proyecto_centro_estetico.ScrollAwareFABBehavior"
     tools:context="com.example.adrin.proyecto_centro_estetico.InicioActivity">
 
     <android.support.design.widget.AppBarLayout

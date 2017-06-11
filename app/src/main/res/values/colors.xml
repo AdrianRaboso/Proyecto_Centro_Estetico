@@ -11,4 +11,5 @@
     <color name="AmarilloPollo">#f8f090</color>
     <color name="verderEspeso">#569250</color>
     <color name="semitransparente">#98c476ec</color>
+    <color name="black">#000000</color>
 </resources>

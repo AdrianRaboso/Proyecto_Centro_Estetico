@@ -10,9 +10,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!--Sirve para acceder al calendario del movil-->
+    <!-- Sirve para acceder al calendario del movil -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <!-- Sirve para acceder al almacenamiento del movil -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -49,7 +51,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".ConfigActivity"
+            android:label="@string/app_config" />
+        <activity
+            android:name=".CrearTratamientoActivity"
+            android:label="@string/app_crear_tratamiento" />
+        <activity
+            android:name=".BorrarTratamientoActivity"
+            android:label="@string/app_borrar_tratamiento" />
     </application>
 
 </manifest>
