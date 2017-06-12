@@ -39,7 +39,6 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
     CheckBox enferm, dispMedic, alergia, medicamento;
     ImageButton botCancel, botSend;
     String id;
-    String nombre;
     boolean isModificado = false;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -89,10 +88,6 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         };
-    }
-
-    private void obtenerUsuarioProveedorActivo() {
-
     }
 
     //metodo para cambiar la contraseñ
@@ -191,13 +186,6 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
         id = user.getUid();//obtengo el id del usuario
         String correo = user.getEmail().toString().trim();
         mail.setText(correo);
-        /*if (user.getDisplayName() != null) {
-            nombre = user.getDisplayName().toString().trim();
-            if (nombre != null) {
-                nomAp.setText(nombre);
-            }
-        }*/
-
         ref.child("Usuarios").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -224,7 +212,7 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
         String correo = mail.getText().toString().trim();
 
         //Estructura: Usuarios.id.Campo:valor
-        if (nombre.equals("") && DNI.equals("") && telefono.equals("") && correo.equals("")) {
+        if (nombre.equals("") || DNI.equals("") || telefono.equals("") || correo.equals("")) {
             Toast.makeText(this, R.string.error_campos_vacios, Toast.LENGTH_SHORT).show();
         } else {
             isModificado = true;
@@ -297,7 +285,6 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
     private boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
@@ -305,7 +292,6 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
 
     private boolean isValidDni(String dni) {
         String DNI_PATTERN = "[0-9]{7,8}[A-Z a-z]";
-
         Pattern pattern = Pattern.compile(DNI_PATTERN);
         Matcher matcher = pattern.matcher(dni);
         return matcher.matches();
@@ -343,9 +329,7 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onStop() {
         super.onStop();
-        if (firebaseAuthListener != null) {
-            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-        }
+        firebaseAuth.removeAuthStateListener(firebaseAuthListener);
     }
 
     @Override

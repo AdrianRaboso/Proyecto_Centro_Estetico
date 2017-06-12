@@ -1,22 +1,26 @@
 package com.example.adrin.proyecto_centro_estetico;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ConfigActivity extends AppCompatActivity {
 
@@ -43,7 +47,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     public static class PrefsFragment extends PreferenceFragment {
-        private Preference crear, modificar, borrar, verUsuarios;
+        private Preference crear, modificar, borrar, verUsuarios, telefono, correo;
         private SwitchPreference mensajes;
 
         @Override
@@ -56,6 +60,8 @@ public class ConfigActivity extends AppCompatActivity {
             borrar = findPreference("delete_tratamiento");
             verUsuarios = findPreference("ver_usuarios");
             mensajes = (SwitchPreference) findPreference("config_envia_mail");
+            telefono = findPreference("cambiar_telefono");
+            correo = findPreference("cambiar_correo");
 
             crear.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -111,6 +117,78 @@ public class ConfigActivity extends AppCompatActivity {
                     return true;
                 }
             });
+
+            telefono.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    AlertDialog.Builder alertTelefono = new AlertDialog.Builder(getActivity());
+                    alertTelefono.setTitle(R.string.title_dialog_telefono);
+
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.dialog_telefono, null);
+                    alertTelefono.setView(layout);
+                    final EditText mensaje = (EditText) layout.findViewById(R.id.cambiar_telefono);
+                    mensaje.setInputType(InputType.TYPE_CLASS_PHONE);
+                    mensaje.setText(Utils.TELEFONO);
+
+                    alertTelefono.setPositiveButton(R.string.btn_resumen_aceptar, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (!mensaje.getText().toString().equals("") && mensaje.getText().toString().length() == 9) {
+                                FirebaseDatabase database;
+                                database = FirebaseDatabase.getInstance();
+                                database.getReference("Propietario").child("telefono").setValue(mensaje.getText().toString().trim());
+                            } else {
+                                Toast.makeText(getActivity(), "El teléfono no es válido", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    alertTelefono.setNegativeButton(R.string.cancelar, null);
+                    alertTelefono.show();
+                    return true;
+                }
+            });
+
+            correo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    AlertDialog.Builder alertCorreo = new AlertDialog.Builder(getActivity());
+                    alertCorreo.setTitle(R.string.title_dialog_nuevo_correo);
+
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.dialog_telefono, null);
+                    alertCorreo.setView(layout);
+                    final EditText mensaje = (EditText) layout.findViewById(R.id.cambiar_telefono);
+                    mensaje.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                    mensaje.setHint("Escriba el nuevo correo...");
+                    mensaje.setText(Utils.CORREO);
+
+                    alertCorreo.setPositiveButton(R.string.btn_resumen_aceptar, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (isValidEmail(mensaje.getText().toString())) {
+                                FirebaseDatabase database;
+                                database = FirebaseDatabase.getInstance();
+                                database.getReference("Propietario").child("correo").setValue(mensaje.getText().toString().trim());
+                            } else {
+                                Toast.makeText(getActivity(), "El correo no es válido", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    alertCorreo.setNegativeButton(R.string.cancelar, null);
+                    alertCorreo.show();
+                    return true;
+                }
+            });
+        }
+
+        private boolean isValidEmail(String email) {
+            String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+            Matcher matcher = pattern.matcher(email);
+            return matcher.matches();
         }
     }
 }

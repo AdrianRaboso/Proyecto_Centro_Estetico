@@ -45,6 +45,9 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
+        //Si no tiene usuario creado se lo creamos al inicio
+        Utils.crearResgistroAutomaticoUsuario();
+
         //Colocamos la Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

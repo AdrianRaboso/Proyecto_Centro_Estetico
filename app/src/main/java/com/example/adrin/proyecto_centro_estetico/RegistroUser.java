@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +22,7 @@ public class RegistroUser extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
     FirebaseUser user;
+    String mail, confMail, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +45,14 @@ public class RegistroUser extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
-
                 if (user != null) {
                     enviarEmailVerificacion();
-
                 }
             }
         };
     }
 
     private void registrarUsuario() {
-        String mail, confMail, password;
         mail = correo.getText().toString().trim();
         confMail = confirmarCorreo.getText().toString().trim();
         password = contraseña.getText().toString().trim();
@@ -80,6 +77,7 @@ public class RegistroUser extends AppCompatActivity implements View.OnClickListe
                                 contraseña.setText("");
                                 Toast.makeText(this, R.string.error_contraseña_corta, Toast.LENGTH_SHORT).show();
                             } else {
+                                //Se crea el registro en la BD
                                 firebaseAuth.createUserWithEmailAndPassword(mail, password)
                                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                             @Override
@@ -97,42 +95,7 @@ public class RegistroUser extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-
-
     }
-
-
-    /*private void registrarUsuario() {
-        String mail, confMail, password;
-        mail = correo.getText().toString().trim();
-        confMail = confirmarCorreo.getText().toString().trim();
-        password = contraseña.getText().toString().trim();
-
-        if (!mail.equals(confMail)) {
-            correo.setText("");
-            confirmarCorreo.setText("");
-            Toast.makeText(this, R.string.coincidir_correo, Toast.LENGTH_SHORT);
-        }
-
-        if (password.length() < 6) {
-            contraseña.setText("");
-            Toast.makeText(this, R.string.error_contraseña_corta, Toast.LENGTH_SHORT);
-        }
-
-        firebaseAuth.createUserWithEmailAndPassword(mail, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Error en el registro, puede que el usuario y la contraseña ya existan", Toast.LENGTH_SHORT).show();
-                            Log.d("TAG", "Error de registro: " + task.getException());
-                        } else {
-
-                            Toast.makeText(getApplicationContext(), "Registrado correctamente", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }*/
 
     private void enviarEmailVerificacion() {
         user = FirebaseAuth.getInstance().getCurrentUser();

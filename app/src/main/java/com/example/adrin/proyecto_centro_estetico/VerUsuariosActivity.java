@@ -118,17 +118,22 @@ public class VerUsuariosActivity extends AppCompatActivity {
     }
 
     private void hacerLlamada(String telefonoTo) {
-        //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
-        if (ActivityCompat.checkSelfPermission(VerUsuariosActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(VerUsuariosActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, 12);
-            Intent llamada = new Intent(Intent.ACTION_CALL);
-            llamada.setData(Uri.parse("tel:+34" + telefonoTo));
-            if (ActivityCompat.checkSelfPermission(VerUsuariosActivity.this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                startActivity(llamada);
-                finish();
+        if (!telefonoTo.equals("")) {
+            //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
+            if (ActivityCompat.checkSelfPermission(VerUsuariosActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(VerUsuariosActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, 12);
+                Intent llamada = new Intent(Intent.ACTION_CALL);
+                llamada.setData(Uri.parse("tel:+34" + telefonoTo));
+                if (ActivityCompat.checkSelfPermission(VerUsuariosActivity.this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(llamada);
+                    finish();
+                }
+            } else {
+                Snackbar.make(getCurrentFocus(), "La aplicación no tiene permisos para hacer llamadas", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
             }
-        } else {
-            Snackbar.make(getCurrentFocus(), "La aplicación no tiene permisos para hacer llamadas", Snackbar.LENGTH_SHORT)
+        }else{
+            Snackbar.make(getCurrentFocus(), "El usuario no tiene número de teléfono", Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         }
     }

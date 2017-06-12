@@ -182,4 +182,10 @@
     <string name="txt_hint_mensaje">Escriba su mensaje...</string>
     <string name="title_dialog_mensaje">Enviar correo</string>
     <string name="title_dialog_nuevo_correo">Nuevo correo</string>
+    <string name="config_ver_telefono">Configure el teléfono de la tienda</string>
+    <string name="congif_summary_telefono">Cambiar teléfono tienda</string>
+    <string name="txt_hint_dialog_telefono">Escriba el nuevo teléfono</string>
+    <string name="title_dialog_telefono">Nuevo teléfono</string>
+    <string name="config_ver_correo">Cambiar correo tienda</string>
+    <string name="congif_summary_correo">Configure el correo de la tienda</string>
 </resources>

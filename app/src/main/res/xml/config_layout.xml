@@ -23,5 +23,13 @@
             android:key="ver_usuarios"
             android:summary="@string/congif_summary_ver"
             android:title="@string/config_ver_usuario" />
+        <Preference
+            android:key="cambiar_telefono"
+            android:summary="@string/config_ver_telefono"
+            android:title="@string/congif_summary_telefono" />
+        <Preference
+            android:key="cambiar_correo"
+            android:summary="@string/congif_summary_correo"
+            android:title="@string/config_ver_correo" />
     </PreferenceCategory>
 </PreferenceScreen>

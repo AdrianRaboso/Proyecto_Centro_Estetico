@@ -1,5 +1,8 @@
 package com.example.adrin.proyecto_centro_estetico;
 
+import android.support.annotation.NonNull;
+
+import com.example.adrin.proyecto_centro_estetico.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,10 +21,10 @@ import java.util.List;
 
 public class Utils {
     public static String user = "";
-    public static String CORREO = "AvenueBeautyCenter@gmail.com";
+    public static String CORREO = "";
     public static String PASS = "avenuebeauty";
     public static String PROPIETARIO = "";
-    public static String TELEFONO = "636952978";
+    public static String TELEFONO = "";
     public static boolean IS_ENVIAR = true;
 
     public static String currentUser() {
@@ -43,6 +46,42 @@ public class Utils {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PROPIETARIO = dataSnapshot.child("correo").getValue().toString();
+                TELEFONO = dataSnapshot.child("telefono").getValue().toString();
+                CORREO = dataSnapshot.child("correo").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static void crearResgistroAutomaticoUsuario() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference refUsuarios = database.getReference("Usuarios");
+
+        //Si da un error es que no existe entonces le generamos valores por defecto
+        refUsuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    if (user != null) {
+                        //Usuario usuario = new Usuario("", user.getEmail(), user.getDisplayName(), "", false, false, false, false);
+                        String id = user.getUid();
+                        //refUsuarios.child("Usuarios").child(id).push().setValue(usuario);
+                        refUsuarios.child(id).child("Alergias").setValue(false);
+                        refUsuarios.child(id).child("Medicamentos").setValue(false);
+                        refUsuarios.child(id).child("Disp_medicos").setValue(false);
+                        refUsuarios.child(id).child("Enfermedades").setValue(false);
+                        refUsuarios.child(id).child("DNI").setValue("");
+                        refUsuarios.child(id).child("Correo").setValue(user.getEmail());
+                        refUsuarios.child(id).child("Nombre").setValue("Nuevo usuario");
+                        refUsuarios.child(id).child("Telefono").setValue("");
+                    }
+                }
             }
 
             @Override
