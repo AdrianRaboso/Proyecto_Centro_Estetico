@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,8 +24,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DatosUsuarioActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -106,6 +113,7 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
     private void cambiarCorreo() {
         user = firebaseAuth.getInstance().getCurrentUser();//obtenemos el usuario
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.title_dialog_nuevo_correo);
         final LayoutInflater inflater = this.getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_cambio, null);
         final EditText email = (EditText) view.findViewById(R.id.correoNuevo);
@@ -183,12 +191,30 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
         id = user.getUid();//obtengo el id del usuario
         String correo = user.getEmail().toString().trim();
         mail.setText(correo);
-        if (user.getDisplayName() != null) {
+        /*if (user.getDisplayName() != null) {
             nombre = user.getDisplayName().toString().trim();
             if (nombre != null) {
                 nomAp.setText(nombre);
             }
-        }
+        }*/
+
+        ref.child("Usuarios").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nomAp.setText(dataSnapshot.child("Nombre").getValue().toString());
+                dni.setText(dataSnapshot.child("DNI").getValue().toString());
+                telf.setText(dataSnapshot.child("Telefono").getValue().toString());
+                alergia.setChecked(Boolean.parseBoolean(dataSnapshot.child("Alergias").getValue().toString()));
+                dispMedic.setChecked(Boolean.parseBoolean(dataSnapshot.child("Disp_medicos").getValue().toString()));
+                enferm.setChecked(Boolean.parseBoolean(dataSnapshot.child("Enfermedades").getValue().toString()));
+                medicamento.setChecked(Boolean.parseBoolean(dataSnapshot.child("Medicamentos").getValue().toString()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void guardarDatos() {
@@ -203,57 +229,86 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
         } else {
             isModificado = true;
             if (nombre.equals("")) {
-                Toast.makeText(this, R.string.error_nom_vacio, Toast.LENGTH_SHORT).show();
+                nomAp.setError("Campo vacio");
             } else {
                 ref.child("Usuarios").child(id).child("Nombre").setValue(nombre);//guardo el nombre
             }
 
             if (DNI.equals("")) {
-                Toast.makeText(this, R.string.error_dni_vacio, Toast.LENGTH_SHORT).show();
+                dni.setError("Campo vacio");
             } else {
-                ref.child("Usuarios").child(id).child("DNI").setValue(DNI);//guardo el dni
+                if (dni.getText().length() == 9 && isValidDni(DNI)) {
+                    ref.child("Usuarios").child(id).child("DNI").setValue(DNI);//guardo el dni
+                } else {
+                    dni.setError("DNI incorrecto");
+                }
             }
 
             if (telf.equals("")) {
-                Toast.makeText(this, R.string.error_telf_vacio, Toast.LENGTH_SHORT).show();
+                telf.setError("Campo vacío");
             } else {
-                ref.child("Usuarios").child(id).child("Telefono").setValue(telefono);//guardo el telefono
+                if (telf.getText().length() == 9) {
+                    ref.child("Usuarios").child(id).child("Telefono").setValue(telefono);//guardo el telefono
+                } else {
+                    telf.setError("Teléfono incorrecto");
+                }
             }
 
             if (correo.equals("")) {
-                Toast.makeText(this, R.string.error_email_vacio, Toast.LENGTH_SHORT).show();
+                mail.setError("Campo vacio");
             } else {
-                ref.child("Usuarios").child(id).child("Correo").setValue(correo);//guardo el correo
+                if (isValidEmail(correo)) {
+                    ref.child("Usuarios").child(id).child("Correo").setValue(correo);//guardo el correo
+                } else {
+                    mail.setError("Patrón incorrecto");
+                }
             }
 
             //guardo si tiene enfermedades o no
             if (enferm.isChecked()) {
-                ref.child("Usuarios").child(id).child("Enfermedades").setValue("SI");
+                ref.child("Usuarios").child(id).child("Enfermedades").setValue(true);
             } else {
-                ref.child("Usuarios").child(id).child("Enfermedades").setValue("NO");
+                ref.child("Usuarios").child(id).child("Enfermedades").setValue(false);
             }
 
             //guardo si tiene dispositivos medicos o no
             if (dispMedic.isChecked()) {
-                ref.child("Usuarios").child(id).child("Disp_medicos").setValue("SI");
+                ref.child("Usuarios").child(id).child("Disp_medicos").setValue(true);
             } else {
-                ref.child("Usuarios").child(id).child("Disp_medicos").setValue("NO");
+                ref.child("Usuarios").child(id).child("Disp_medicos").setValue(false);
             }
 
             //guardo si tiene alguna alergia o no
             if (alergia.isChecked()) {
-                ref.child("Usuarios").child(id).child("Alergias").setValue("SI");
+                ref.child("Usuarios").child(id).child("Alergias").setValue(true);
             } else {
-                ref.child("Usuarios").child(id).child("Alergias").setValue("NO");
+                ref.child("Usuarios").child(id).child("Alergias").setValue(false);
             }
 
             //guardo si tiene medicamentos o no
             if (medicamento.isChecked()) {
-                ref.child("Usuarios").child(id).child("Medicamentos").setValue("SI");
+                ref.child("Usuarios").child(id).child("Medicamentos").setValue(true);
             } else {
-                ref.child("Usuarios").child(id).child("Medicamentos").setValue("NO");
+                ref.child("Usuarios").child(id).child("Medicamentos").setValue(false);
             }
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean isValidDni(String dni) {
+        String DNI_PATTERN = "[0-9]{7,8}[A-Z a-z]";
+
+        Pattern pattern = Pattern.compile(DNI_PATTERN);
+        Matcher matcher = pattern.matcher(dni);
+        return matcher.matches();
     }
 
     @Override
@@ -300,7 +355,7 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
         } else if (view.getId() == botSend.getId()) {
             guardarDatos();
             if (isModificado) {
-                finish();
+                Snackbar.make(getCurrentFocus(), "Su usuario ha sido modificado", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             }
         }
     }

@@ -140,7 +140,7 @@ public class ResumenCitaActivity extends AppCompatActivity {
         if (Utils.IS_ENVIAR) {
             String emailSubject = "Cita reservada";
             String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + fecha.getText().toString() + " y hora " + hora.getText().toString() + ", desea un tratamiento de " + tratamiento.getText().toString();
-            Utils.crearMensaje(emailSubject, emailBody);
+            Utils.crearMensajeTienda(emailSubject, emailBody);
         }
     }
 

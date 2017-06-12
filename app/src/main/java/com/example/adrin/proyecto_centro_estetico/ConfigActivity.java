@@ -43,7 +43,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     public static class PrefsFragment extends PreferenceFragment {
-        private Preference crear, modificar, borrar;
+        private Preference crear, modificar, borrar, verUsuarios;
         private SwitchPreference mensajes;
 
         @Override
@@ -54,6 +54,7 @@ public class ConfigActivity extends AppCompatActivity {
             crear = findPreference("add_tratamiento");
             modificar = findPreference("modify_tratamiento");
             borrar = findPreference("delete_tratamiento");
+            verUsuarios = findPreference("ver_usuarios");
             mensajes = (SwitchPreference) findPreference("config_envia_mail");
 
             crear.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -82,6 +83,15 @@ public class ConfigActivity extends AppCompatActivity {
                     Intent borrar = new Intent(getActivity(), BorrarTratamientoActivity.class);
                     borrar.putExtra("modificar", false);
                     startActivity(borrar);
+                    return true;
+                }
+            });
+
+            verUsuarios.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent ver = new Intent(getActivity(), VerUsuariosActivity.class);
+                    startActivity(ver);
                     return true;
                 }
             });

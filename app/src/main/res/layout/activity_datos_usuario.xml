@@ -53,6 +53,7 @@
         android:ems="10"
         android:hint="@string/DNI"
         android:inputType="textPersonName"
+        android:maxLength="9"
         android:textColor="@android:color/background_dark"
         android:textColorHint="@android:color/background_dark" />
 
@@ -66,6 +67,7 @@
         android:ems="10"
         android:hint="@string/telf"
         android:inputType="phone"
+        android:maxLength="9"
         android:textColor="@android:color/background_dark"
         android:textColorHint="@android:color/background_dark" />
 

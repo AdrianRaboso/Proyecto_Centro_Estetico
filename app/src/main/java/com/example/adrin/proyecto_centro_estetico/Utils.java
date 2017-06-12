@@ -21,6 +21,7 @@ public class Utils {
     public static String CORREO = "AvenueBeautyCenter@gmail.com";
     public static String PASS = "avenuebeauty";
     public static String PROPIETARIO = "";
+    public static String TELEFONO = "636952978";
     public static boolean IS_ENVIAR = true;
 
     public static String currentUser() {
@@ -71,8 +72,13 @@ public class Utils {
         });
     }
 
-    public static void crearMensaje(String subject, String body) {
+    public static void crearMensajeTienda(String subject, String body) {
         List toEmailList = Arrays.asList(Utils.CORREO.split("\\s*,\\s*"));
+        new SendEmailTask().execute(Utils.CORREO, Utils.PASS, toEmailList, subject, body);
+    }
+
+    public static void crearMensajeUsuario(String subject, String body, String correoTo) {
+        List toEmailList = Arrays.asList(correoTo.split("\\s*,\\s*"));
         new SendEmailTask().execute(Utils.CORREO, Utils.PASS, toEmailList, subject, body);
     }
 

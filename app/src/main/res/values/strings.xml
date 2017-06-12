@@ -165,11 +165,21 @@
     <string name="medicamentos">Medicamentos</string>
     <string name="aviso_correo_cambioPsw">Recibirá un correo con los pasos a seguir</string>
     <string name="error_nom_vacio">Por favor, ingrese nombre y apellidos</string>
-    <string name="error_dni_vacio">Por favor, ingrese el dni</string>
-    <string name="error_telf_vacio">Por favor, ingrese el teléfono</string>
+    <string name="error_dni_vacio">Por favor, ingrese el dni correctamente</string>
+    <string name="error_telf_vacio">Por favor, ingrese el teléfono correctamente</string>
     <string name="nuevo_correo">Nuevo correo</string>
     <string name="cambio_correo_usuario">Confirme el email en su nuevo correo</string>
     <string name="error_cambiar_correo">No ha sido posible completar la acción</string>
     <string name="app_datos_usuario">Datos personales</string>
     <string name="texto_modificar">Seleccione el tratamiento a modificar:</string>
+    <string name="config_ver_usuario">Visualizar usuarios registrados</string>
+    <string name="congif_summary_ver">Lista de usuarios registrados en tu aplicación</string>
+    <string name="app_ver_usuarios">Usuarios registrados</string>
+    <string name="correo_usuario">Enviar correo</string>
+    <string name="llamar_usuario">Llamar</string>
+    <string name="title_dialog_opciones">Opciones de usuario</string>
+    <string name="message_dialog_opciones">¿Desea LLAMAR o escribir un CORREO?</string>
+    <string name="txt_hint_mensaje">Escriba su mensaje...</string>
+    <string name="title_dialog_mensaje">Enviar correo</string>
+    <string name="title_dialog_nuevo_correo">Nuevo correo</string>
 </resources>

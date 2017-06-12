@@ -77,6 +77,9 @@
             android:name=".DatosUsuarioActivity"
             android:label="@string/app_datos_usuario"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".VerUsuariosActivity"
+            android:label="@string/app_ver_usuarios" />
     </application>
 
 </manifest>

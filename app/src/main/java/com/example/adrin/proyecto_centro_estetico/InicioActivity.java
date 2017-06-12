@@ -87,7 +87,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
 
         if (Utils.PROPIETARIO.equals(user)) {
             menu.setGroupVisible(R.id.menu_config_group, true);
-        }else{
+        } else {
             menu.setGroupVisible(R.id.menu_config_group, false);
         }
         return true;
@@ -122,7 +122,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 12);
                 Intent llamada = new Intent(Intent.ACTION_CALL);
-                llamada.setData(Uri.parse("tel:+34"));//TODO: Añadir un numero de telefono
+                llamada.setData(Uri.parse("tel:+34" + Utils.TELEFONO));
                 if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                     startActivity(llamada);
                     finish();
@@ -135,7 +135,7 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             //Accedemos a las preferencias
             Intent config = new Intent(InicioActivity.this, DatosUsuarioActivity.class);
             startActivity(config);
-        }else if (id == R.id.action_config) {
+        } else if (id == R.id.action_config) {
             //Accedemos a las preferencias de propietario
             Intent config = new Intent(InicioActivity.this, ConfigActivity.class);
             startActivity(config);

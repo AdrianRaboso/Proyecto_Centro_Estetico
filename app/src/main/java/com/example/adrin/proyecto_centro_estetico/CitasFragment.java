@@ -28,6 +28,7 @@ public class CitasFragment extends Fragment {
     private LinearLayoutManager layoutManager;
     private RecyclerView recycler;
     private TextView empty;
+    Query citasOrdenadas;
 
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
@@ -52,12 +53,16 @@ public class CitasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_citas, container, false);
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
-        final Query citasOrdenadas = refCitas.orderByChild("cod_cliente").equalTo(Utils.currentUser());
 
+        //Si es el propietario de la app saca todas las citas
+        if (!Utils.PROPIETARIO.equals(Utils.currentUser())) {
+            citasOrdenadas = refCitas.orderByChild("fecha").equalTo(Utils.currentUser());
+        } else {
+            citasOrdenadas = refCitas.orderByChild("fecha");
+        }
         recycler = (RecyclerView) view.findViewById(R.id.list_citas);
         empty = (TextView) view.findViewById(android.R.id.empty);
         empty = (TextView) view.findViewById(R.id.empty_view);
@@ -139,7 +144,7 @@ public class CitasFragment extends Fragment {
                 if (Utils.IS_ENVIAR) {
                     String emailSubject = "Cita cancelada";
                     String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + cita.getFecha() + " y hora " + cita.getHora() + ", para el tratamiento " + cita.getTratamiento() + " ha sido cancelada";
-                    Utils.crearMensaje(emailSubject, emailBody);
+                    Utils.crearMensajeTienda(emailSubject, emailBody);
                 }
             }
         });
