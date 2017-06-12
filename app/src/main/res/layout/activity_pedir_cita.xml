@@ -24,16 +24,7 @@
             app:popupTheme="@style/PopupOverlay">
 
         </android.support.v7.widget.Toolbar>
-
     </android.support.design.widget.AppBarLayout>
-
-    <!--android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" /-->
 
     <me.drozdzynski.library.steppers.SteppersView
         android:id="@+id/steppersView"

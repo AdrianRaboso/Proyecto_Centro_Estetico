@@ -54,8 +54,55 @@ public class RegistroUser extends AppCompatActivity implements View.OnClickListe
         };
     }
 
-
     private void registrarUsuario() {
+        String mail, confMail, password;
+        mail = correo.getText().toString().trim();
+        confMail = confirmarCorreo.getText().toString().trim();
+        password = contraseña.getText().toString().trim();
+
+        if (mail.equals("") && confMail.equals("") && password.equals("")) {
+            Toast.makeText(this, R.string.error_campos_vacios, Toast.LENGTH_SHORT).show();
+        } else {
+            if (mail.equals("")) {
+                Toast.makeText(this, R.string.error_email_vacio, Toast.LENGTH_SHORT).show();
+            } else {
+                if (confMail.equals("")) {
+                    Toast.makeText(this, R.string.error_confirmMail_vacio, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (password.equals("")) {
+                        Toast.makeText(this, R.string.error_contraseña_vacia, Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (!mail.equals(confMail)) {
+                            confirmarCorreo.setText("");
+                            Toast.makeText(this, R.string.coincidir_correo, Toast.LENGTH_SHORT).show();
+                        } else if (!mail.equals("") && !confMail.equals("") && !password.equals("")) {
+                            if (password.toString().length() < 6) {
+                                contraseña.setText("");
+                                Toast.makeText(this, R.string.error_contraseña_corta, Toast.LENGTH_SHORT).show();
+                            } else {
+                                firebaseAuth.createUserWithEmailAndPassword(mail, password)
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (!task.isSuccessful()) {
+                                                    Toast.makeText(getApplicationContext(), R.string.error_cuenta_existente, Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), R.string.registro_correcto, Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+
+
+    /*private void registrarUsuario() {
         String mail, confMail, password;
         mail = correo.getText().toString().trim();
         confMail = confirmarCorreo.getText().toString().trim();
@@ -85,7 +132,7 @@ public class RegistroUser extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-    }
+    }*/
 
     private void enviarEmailVerificacion() {
         user = FirebaseAuth.getInstance().getCurrentUser();

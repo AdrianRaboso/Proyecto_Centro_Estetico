@@ -20,15 +20,14 @@ public class Utils {
     public static String user = "";
     public static String CORREO = "AvenueBeautyCenter@gmail.com";
     public static String PASS = "avenuebeauty";
-    public static String PROPIETARIO = "raborano@gmail.com";
+    public static String PROPIETARIO = "";
+    public static boolean IS_ENVIAR = true;
 
     public static String currentUser() {
         //Sacamos el usuario
-        //if (user.equals("")) {
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            FirebaseUser usuario = firebaseAuth.getCurrentUser();
-            user = usuario.getEmail();
-        //}
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuario = firebaseAuth.getCurrentUser();
+        user = usuario.getEmail();
         return user;
     }
 
@@ -39,10 +38,30 @@ public class Utils {
 
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Propietario");
-        refCitas.addListenerForSingleValueEvent(new ValueEventListener() {
+        refCitas.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PROPIETARIO = dataSnapshot.child("correo").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static void getEnviarMensajes() {
+        //Sacamos el propietario de la app
+        FirebaseDatabase database;
+        DatabaseReference refCitas;
+
+        database = FirebaseDatabase.getInstance();
+        refCitas = database.getReference("Propietario");
+        refCitas.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                IS_ENVIAR = (boolean) dataSnapshot.child("recibirCorreos").getValue();
             }
 
             @Override

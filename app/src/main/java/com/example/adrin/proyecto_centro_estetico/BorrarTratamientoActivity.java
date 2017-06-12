@@ -1,6 +1,7 @@
 package com.example.adrin.proyecto_centro_estetico;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,14 +32,26 @@ public class BorrarTratamientoActivity extends AppCompatActivity {
     private ListView lista;
     private ArrayList listaTra = new ArrayList();
     private ArrayList listaImg = new ArrayList();
+    private TextView texto;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrar);
 
+        texto = (TextView) findViewById(R.id.texto);
+
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReferenceFromUrl("gs://centro-estetico.appspot.com/");
+
         //Colocamos la Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_borrar_tratamiento);
+        if (getIntent().getExtras().getBoolean("modificar")) {
+            toolbar.setTitle("Modificar tratamiento");
+            texto.setText(R.string.texto_modificar);
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -59,50 +72,89 @@ public class BorrarTratamientoActivity extends AppCompatActivity {
                 TextView nombreView = (TextView) view.findViewById(android.R.id.text1);
                 final String nombre = nombreView.getText().toString();
 
-                //Creamos un dialogo de aviso al borrar
-                AlertDialog.Builder vent = new AlertDialog.Builder(BorrarTratamientoActivity.this);
-                vent.setTitle("Borrar \"" + nombre + "\"");
-                vent.setMessage("¿Borrar tratamiento de forma definitiva?");
-                vent.setPositiveButton("SI", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Query queryRef = database.getReference().child("Tratamiento").orderByChild("nombre").equalTo(nombre);
-                        queryRef.addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                                snapshot.getRef().setValue(null);
-                            }
+                if (!getIntent().getExtras().getBoolean("modificar")) {
+                    //Creamos un dialogo de aviso al borrar
+                    AlertDialog.Builder vent = new AlertDialog.Builder(BorrarTratamientoActivity.this);
+                    vent.setTitle("Borrar \"" + nombre + "\"");
+                    vent.setMessage("¿Borrar tratamiento de forma definitiva?");
+                    vent.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Query queryRef = database.getReference().child("Tratamiento").orderByChild("nombre").equalTo(nombre);
+                            queryRef.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                                    snapshot.getRef().setValue(null);
+                                    borrarImagen(snapshot.child("imagen").getValue().toString());
+                                }
 
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
-                        lista.deferNotifyDataSetChanged();
-                    }
-                });
-                vent.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            });
+                            lista.deferNotifyDataSetChanged();
+                        }
+                    });
+                    vent.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-                vent.show();
+                        }
+                    });
+                    vent.show();
+                } else {
+                    Query queryRef = database.getReference().child("Tratamiento").orderByChild("nombre").equalTo(nombre);
+                    queryRef.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                            Intent intentModificar = new Intent(BorrarTratamientoActivity.this, CrearTratamientoActivity.class);
+                            intentModificar.putExtra("nombre", snapshot.child("nombre").getValue().toString());
+                            intentModificar.putExtra("descripcion", snapshot.child("descripcion").getValue().toString());
+                            intentModificar.putExtra("esteticista", snapshot.child("esteticista").getValue().toString());
+                            intentModificar.putExtra("precio", snapshot.child("precio").getValue().toString());
+                            intentModificar.putExtra("imagen", snapshot.child("imagen").getValue().toString());
+                            intentModificar.putExtra("id", snapshot.getKey());
+                            intentModificar.putExtra("modificar", true);
+                            startActivity(intentModificar);
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
         });
 
@@ -128,6 +180,12 @@ public class BorrarTratamientoActivity extends AppCompatActivity {
                 System.out.println("La lectura falló: " + databaseError.getMessage());
             }
         });
+    }
+
+    private void borrarImagen(String nombreImg) {
+        //Borramos la imagen al storage de firebase
+        StorageReference imgTraRef = storageRef.child("imgTratamiento/" + nombreImg);
+        imgTraRef.delete();
     }
 
     @Override

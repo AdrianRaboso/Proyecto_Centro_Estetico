@@ -30,20 +30,30 @@
         <activity
             android:name=".ResumenCitaActivity"
             android:label="@string/app_resumen_cita"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.DialogPers" />
         <activity
             android:name=".InicioActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".DescripcionActivity"
             android:label="@string/app_descripcion"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.DialogPers" />
         <!-- LOGIN -->
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistroUser" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegistroUser"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,13 +63,20 @@
         </activity>
         <activity
             android:name=".ConfigActivity"
-            android:label="@string/app_config" />
+            android:label="@string/app_config"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CrearTratamientoActivity"
-            android:label="@string/app_crear_tratamiento" />
+            android:label="@string/app_crear_tratamiento"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BorrarTratamientoActivity"
-            android:label="@string/app_borrar_tratamiento" />
+            android:label="@string/app_borrar_tratamiento"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DatosUsuarioActivity"
+            android:label="@string/app_datos_usuario"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

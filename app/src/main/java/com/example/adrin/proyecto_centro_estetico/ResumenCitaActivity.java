@@ -34,7 +34,6 @@ public class ResumenCitaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resumen_cita);
 
         //Firebase
-        // Write a message to the database
         database = FirebaseDatabase.getInstance();
         refCitas = database.getReference("Citas");
 
@@ -72,7 +71,6 @@ public class ResumenCitaActivity extends AppCompatActivity {
                 Cita datosCita = new Cita(tratamiento.getText().toString(), fecha.getText().toString(), getIntent().getExtras().getInt("hora"));
                 datosCita.setCod_cliente(Utils.currentUser());
                 refCitas.push().setValue(datosCita);
-
                 //Añadimos la cita al calendario
                 addCitaCalendario();
             }
@@ -139,9 +137,11 @@ public class ResumenCitaActivity extends AppCompatActivity {
         calendarDialog.show();
 
         //Enviamos un mensaje al centro de belleza
-        String emailSubject = "Cita reservada";
-        String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + fecha.getText().toString() + " y hora " + hora.getText().toString() + ", desea un tratamiento de " + tratamiento.getText().toString();
-        Utils.crearMensaje(emailSubject, emailBody);
+        if (Utils.IS_ENVIAR) {
+            String emailSubject = "Cita reservada";
+            String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + fecha.getText().toString() + " y hora " + hora.getText().toString() + ", desea un tratamiento de " + tratamiento.getText().toString();
+            Utils.crearMensaje(emailSubject, emailBody);
+        }
     }
 
     private int[] sacarFecha(String fechaString) {

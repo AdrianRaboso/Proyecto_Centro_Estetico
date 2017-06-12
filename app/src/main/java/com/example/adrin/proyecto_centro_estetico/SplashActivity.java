@@ -24,6 +24,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        //Sacamos los datos de la tabla propietario de la app
+        Utils.getPropietario();
+        Utils.getEnviarMensajes();
+
         //Ponemos fondo de pantalla al splahs
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.splash_theme));
         bar = (ProgressBar) findViewById(R.id.barraProgreso);

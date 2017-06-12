@@ -2,28 +2,19 @@ package com.example.adrin.proyecto_centro_estetico;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
-import com.example.adrin.proyecto_centro_estetico.model.Tratamiento;
-import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -145,9 +136,11 @@ public class CitasFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 ref.removeValue();
                 //Enviamos un mensaje al centro de belleza
-                String emailSubject = "Cita cancelada";
-                String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + cita.getFecha() + " y hora " + cita.getHora() + ", para el tratamiento " + cita.getTratamiento() + " ha sido cancelada";
-                Utils.crearMensaje(emailSubject, emailBody);
+                if (Utils.IS_ENVIAR) {
+                    String emailSubject = "Cita cancelada";
+                    String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + cita.getFecha() + " y hora " + cita.getHora() + ", para el tratamiento " + cita.getTratamiento() + " ha sido cancelada";
+                    Utils.crearMensaje(emailSubject, emailBody);
+                }
             }
         });
         mensajeCambiarClave.setNegativeButton(R.string.cancelar, null);

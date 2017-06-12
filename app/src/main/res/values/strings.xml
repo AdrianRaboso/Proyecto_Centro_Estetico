@@ -9,7 +9,6 @@
     <string name="app_pedir_cita">Elija su cita...</string>
     <string name="txt_bienvenida">¡Bienvenido a Avenue Beauty!</string>
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_empty_list">Sin citas</string>
@@ -54,8 +53,6 @@
     <string name="app_descripcion">Información</string>
     <string name="action_config">Configuración</string>
     <string name="title_activity_configuracion">Configuración</string>
-
-    <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
@@ -128,12 +125,9 @@
 
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
-
     <string name="pref_title_new_message_notifications">New message notifications</string>
-
     <string name="pref_title_ringtone">Ringtone</string>
     <string name="pref_ringtone_silent">Silent</string>
-
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="category_creacion">ADMINISTRACIÓN</string>
     <string name="config_add_tratamiento">Crear nuevo tratamiento</string>
@@ -156,4 +150,26 @@
     <string name="txt_cargando">Subiendo tratamiento...</string>
     <string name="app_borrar_tratamiento">Borrar tratamiento</string>
     <string name="txt_mensaje_borrar">Seleccione el tratamiento que quiere borrar:</string>
+    <string name="error_campos_vacios">Por favor, rellene todos los campos</string>
+    <string name="error_email_vacio">Por favor, ingrese un correo</string>
+    <string name="error_confirmMail_vacio">Por favor, confirme el correo</string>
+    <string name="error_contraseña_vacia">Por favor, ingrese una contraseña</string>
+    <string name="error_cuenta_existente">Disculpe, la cuenta ya existe</string>
+    <string name="registro_correcto">Registrado correctamente. Recibirá un correo de confirmación</string>
+    <string name="nombreApellidos">Nombre y apellidos</string>
+    <string name="DNI">DNI</string>
+    <string name="telf">Teléfono</string>
+    <string name="enfermedades">Enfermedades</string>
+    <string name="dispMedicos">Disp. Médicos</string>
+    <string name="alergias">Alergias</string>
+    <string name="medicamentos">Medicamentos</string>
+    <string name="aviso_correo_cambioPsw">Recibirá un correo con los pasos a seguir</string>
+    <string name="error_nom_vacio">Por favor, ingrese nombre y apellidos</string>
+    <string name="error_dni_vacio">Por favor, ingrese el dni</string>
+    <string name="error_telf_vacio">Por favor, ingrese el teléfono</string>
+    <string name="nuevo_correo">Nuevo correo</string>
+    <string name="cambio_correo_usuario">Confirme el email en su nuevo correo</string>
+    <string name="error_cambiar_correo">No ha sido posible completar la acción</string>
+    <string name="app_datos_usuario">Datos personales</string>
+    <string name="texto_modificar">Seleccione el tratamiento a modificar:</string>
 </resources>

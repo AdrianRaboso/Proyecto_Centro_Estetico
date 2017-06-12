@@ -28,13 +28,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
-    EditText mail, password;
-    Button login, signin, botPwd;
-    SignInButton signInButton;
-    GoogleApiClient googleApiClient;
+    private EditText mail, password;
+    private Button login, signin, botPwd;
+    private SignInButton signInButton;
+    private GoogleApiClient googleApiClient;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
     public static final int SIGNIN_CODE = 777;
 
     @Override
@@ -153,11 +153,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void comprobarEmailVerificado() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user.isEmailVerified()) {
-            goMainScreen();
-        } else {
-            FirebaseAuth.getInstance().signOut();
+        if (user != null) {
+            if (user.isEmailVerified()) {
+                goMainScreen();
+            } else {
+                FirebaseAuth.getInstance().signOut();
+            }
+        }else{
+            Toast.makeText(this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
         }
     }
 
