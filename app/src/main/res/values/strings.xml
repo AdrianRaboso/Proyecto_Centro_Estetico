@@ -129,7 +129,7 @@
     <string name="pref_title_ringtone">Ringtone</string>
     <string name="pref_ringtone_silent">Silent</string>
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="category_creacion">ADMINISTRACIÓN</string>
+    <string name="category_creacion">ADMINISTRAR TRATAMIENTOS</string>
     <string name="config_add_tratamiento">Crear nuevo tratamiento</string>
     <string name="congif_summary_add">Añade un nuevo tratamiento a tu lista</string>
     <string name="config_modify_tratamiento">Modificar tratamiento</string>
@@ -188,4 +188,15 @@
     <string name="title_dialog_telefono">Nuevo teléfono</string>
     <string name="config_ver_correo">Cambiar correo tienda</string>
     <string name="congif_summary_correo">Configure el correo de la tienda</string>
+    <string name="category_ofertas">ADMINISTRAR OFERTAS</string>
+    <string name="config_add_oferta">Crear nueva oferta</string>
+    <string name="config_modify_oferta">Modificar oferta</string>
+    <string name="config_delete_oferta">Borrar oferta</string>
+    <string name="congif_summary_add_oferta">Añade una nueva oferta para la tienda</string>
+    <string name="congif_summary_modify_oferta">Modifique los datos de las ofertas</string>
+    <string name="congif_summary_delete_oferta">Borre las ofertas que ya no desee</string>
+    <string name="txt_mensaje_borrar_oferta">Seleccione la oferta que quiera borrar:</string>
+    <string name="app_borrar_oferta">Borrar oferta</string>
+    <string name="app_crear_oferta">Nueva oferta</string>
+    <string name="oferta_creada_exito">¡Oferta creada con éxito!</string>
 </resources>

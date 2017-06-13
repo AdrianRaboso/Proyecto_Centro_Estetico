@@ -14,6 +14,20 @@
             android:summary="@string/congif_summary_delete"
             android:title="@string/config_delete_tratamiento" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/category_ofertas">
+        <Preference
+            android:key="add_oferta"
+            android:summary="@string/congif_summary_add_oferta"
+            android:title="@string/config_add_oferta" />
+        <!--Preference
+            android:key="modify_oferta"
+            android:summary="@string/congif_summary_modify_oferta"
+            android:title="@string/config_modify_oferta" /-->
+        <Preference
+            android:key="delete_oferta"
+            android:summary="@string/congif_summary_delete_oferta"
+            android:title="@string/config_delete_oferta" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/category_otros">
         <SwitchPreference
             android:key="config_envia_mail"

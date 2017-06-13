@@ -120,7 +120,7 @@ public class CrearTratamientoActivity extends AppCompatActivity {
                         barraProgreso.show();
                     }
                 } else {
-                    Snackbar.make(getCurrentFocus(), "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(getCurrentFocus(), R.string.error_campos_vacios, Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 }
             }

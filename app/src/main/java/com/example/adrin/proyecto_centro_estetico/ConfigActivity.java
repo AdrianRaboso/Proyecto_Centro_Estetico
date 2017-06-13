@@ -47,7 +47,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     public static class PrefsFragment extends PreferenceFragment {
-        private Preference crear, modificar, borrar, verUsuarios, telefono, correo;
+        private Preference crear, modificar, borrar, verUsuarios, telefono, correo, crearOferta, modificarOferta, borrarOferta;
         private SwitchPreference mensajes;
 
         @Override
@@ -58,6 +58,9 @@ public class ConfigActivity extends AppCompatActivity {
             crear = findPreference("add_tratamiento");
             modificar = findPreference("modify_tratamiento");
             borrar = findPreference("delete_tratamiento");
+            crearOferta = findPreference("add_oferta");
+            //modificarOferta = findPreference("modify_oferta");
+            borrarOferta = findPreference("delete_oferta");
             verUsuarios = findPreference("ver_usuarios");
             mensajes = (SwitchPreference) findPreference("config_envia_mail");
             telefono = findPreference("cambiar_telefono");
@@ -177,6 +180,24 @@ public class ConfigActivity extends AppCompatActivity {
                     });
                     alertCorreo.setNegativeButton(R.string.cancelar, null);
                     alertCorreo.show();
+                    return true;
+                }
+            });
+
+            crearOferta.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent crearOferta = new Intent(getActivity(), CrearOfertaActivity.class);
+                    startActivity(crearOferta);
+                    return true;
+                }
+            });
+
+            borrarOferta.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent borrarOferta = new Intent(getActivity(), BorrarOfertaActivity.class);
+                    startActivity(borrarOferta);
                     return true;
                 }
             });

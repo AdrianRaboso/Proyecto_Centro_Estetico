@@ -79,7 +79,16 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".VerUsuariosActivity"
-            android:label="@string/app_ver_usuarios" />
+            android:label="@string/app_ver_usuarios"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BorrarOfertaActivity"
+            android:label="@string/app_borrar_oferta"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CrearOfertaActivity"
+            android:label="@string/app_crear_oferta"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
