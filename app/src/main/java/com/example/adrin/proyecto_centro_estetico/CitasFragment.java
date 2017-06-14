@@ -59,9 +59,9 @@ public class CitasFragment extends Fragment {
 
         //Si es el propietario de la app saca todas las citas
         if (!Utils.PROPIETARIO.equals(Utils.currentUser())) {
-            citasOrdenadas = refCitas.orderByChild("fecha").equalTo(Utils.currentUser());
+            citasOrdenadas = refCitas.orderByChild("cod_cliente").equalTo(Utils.currentUser());
         } else {
-            citasOrdenadas = refCitas.orderByChild("fecha");
+            citasOrdenadas = refCitas.orderByChild("cod_cliente");
         }
         recycler = (RecyclerView) view.findViewById(R.id.list_citas);
         empty = (TextView) view.findViewById(android.R.id.empty);
@@ -71,8 +71,7 @@ public class CitasFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recycler.setLayoutManager(layoutManager);
 
-        mAdapter = new FirebaseRecyclerAdapter<Cita, CitaHolder>(
-                Cita.class, R.layout.fragment_citas_list_item, CitaHolder.class, citasOrdenadas) {
+        mAdapter = new FirebaseRecyclerAdapter<Cita, CitaHolder>(Cita.class, R.layout.fragment_citas_list_item, CitaHolder.class, citasOrdenadas) {
 
             @Override
             public void populateViewHolder(CitaHolder citaViewHolder, final Cita cita, int position) {
