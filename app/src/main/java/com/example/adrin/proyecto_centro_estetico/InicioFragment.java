@@ -73,7 +73,7 @@ public class InicioFragment extends Fragment {
                 tratamientoViewHolder.setNombre(tratamiento.getNombre());
                 tratamientoViewHolder.setPrecio(String.valueOf(tratamiento.getPrecio()) + " €");
                 tratamientoViewHolder.setEsteticista("Esteticista: " + tratamiento.getEsteticista());
-                tratamientoViewHolder.setDuracion(String.valueOf(tratamiento.getDuracion()) + " hora");
+                tratamientoViewHolder.setDuracion("Duración: " + String.valueOf(tratamiento.getDuracion()) + " hora");
                 tratamientoViewHolder.infoClick(tratamiento.getDescripcion());
                 tratamientoViewHolder.citaClick(mListener, tratamiento.getNombre());
 

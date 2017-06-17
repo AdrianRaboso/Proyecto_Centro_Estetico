@@ -63,6 +63,7 @@ public class ConfigActivity extends AppCompatActivity {
             borrarOferta = findPreference("delete_oferta");
             verUsuarios = findPreference("ver_usuarios");
             mensajes = (SwitchPreference) findPreference("config_envia_mail");
+            mensajes.setChecked(Utils.IS_ENVIAR);
             telefono = findPreference("cambiar_telefono");
             correo = findPreference("cambiar_correo");
 

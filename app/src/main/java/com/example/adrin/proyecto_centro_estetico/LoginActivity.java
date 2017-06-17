@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(new Intent(getApplicationContext(), InicioActivity.class));
                         } else {
                             comprobarEmailVerificado();
-                            //Toast.makeText(getApplicationContext(),"Error de autenticacion",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Error de autenticación",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

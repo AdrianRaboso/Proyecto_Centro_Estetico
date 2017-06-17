@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.adrin.proyecto_centro_estetico.model.Cita;
@@ -24,7 +23,6 @@ import java.util.Date;
 
 public class CitasFragment extends Fragment {
 
-    private ListAdapter firebaseCitasAdapter;
     private LinearLayoutManager layoutManager;
     private RecyclerView recycler;
     private TextView empty;
@@ -87,9 +85,15 @@ public class CitasFragment extends Fragment {
                 final DatabaseReference refCita = getRef(position);
 
                 if (calFecha.getTime().after(new Date())) {
+                    //si es admin le añadmimos el nombre a la cita
+                    if (Utils.PROPIETARIO.equals(Utils.currentUser())) {
+                        citaViewHolder.setFecha(cita.getFecha() + " a las " + cita.getHora() + ":00\n" + "(" + cita.getCod_cliente() + ")");
+                    } else {
+                        citaViewHolder.setFecha(cita.getFecha() + " a las " + cita.getHora() + ":00");
+                    }
                     //Seteamos la fecha y el nombre
                     citaViewHolder.setTratamiento(cita.getTratamiento());
-                    citaViewHolder.setFecha(cita.getFecha() + " a las " + cita.getHora() + ":00");
+
                     //Añadimos un listener a cada elemento
                     citaViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -139,11 +143,19 @@ public class CitasFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ref.removeValue();
-                //Enviamos un mensaje al centro de belleza
-                if (Utils.IS_ENVIAR) {
-                    String emailSubject = "Cita cancelada";
-                    String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + cita.getFecha() + " y hora " + cita.getHora() + ", para el tratamiento " + cita.getTratamiento() + " ha sido cancelada";
-                    Utils.crearMensajeTienda(emailSubject, emailBody);
+                //Vemos si es el propietario de la app
+                if (!Utils.PROPIETARIO.equals(Utils.currentUser())) {
+                    //Enviamos un mensaje al centro de belleza
+                    if (Utils.IS_ENVIAR) {
+                        String emailSubject = "Cita cancelada";
+                        String emailBody = "Cita del usuario " + Utils.currentUser() + " con fecha " + cita.getFecha() + " y hora " + cita.getHora() + ", para el tratamiento " + cita.getTratamiento() + " ha sido cancelada";
+                        Utils.crearMensajeTienda(emailSubject, emailBody);
+                    }
+                } else {
+                    //Enviamos un mensaje al cliente que se le ha cancelado la cita
+                    String emailSubject = "Su cita ha sido cancelada";
+                    String emailBody = cita.getCod_cliente() + ", su cita con fecha " + cita.getFecha() + " y hora " + cita.getHora() + ", para el tratamiento " + cita.getTratamiento() + " ha sido cancelada. Consulte con la tienda para conocer el motivo: " + Utils.TELEFONO;
+                    Utils.crearMensajeUsuario(emailSubject, emailBody, cita.getCod_cliente());
                 }
             }
         });

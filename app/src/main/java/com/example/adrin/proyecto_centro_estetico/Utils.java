@@ -45,9 +45,10 @@ public class Utils {
         refCitas.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                PROPIETARIO = dataSnapshot.child("correo").getValue().toString();
+               // PROPIETARIO = dataSnapshot.child("correo").getValue().toString();
                 TELEFONO = dataSnapshot.child("telefono").getValue().toString();
                 CORREO = dataSnapshot.child("correo").getValue().toString();
+                IS_ENVIAR = (boolean) dataSnapshot.child("recibirCorreos").getValue();
             }
 
             @Override
@@ -82,26 +83,6 @@ public class Utils {
                         refUsuarios.child(id).child("Telefono").setValue("");
                     }
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public static void getEnviarMensajes() {
-        //Sacamos el propietario de la app
-        FirebaseDatabase database;
-        DatabaseReference refCitas;
-
-        database = FirebaseDatabase.getInstance();
-        refCitas = database.getReference("Propietario");
-        refCitas.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                IS_ENVIAR = (boolean) dataSnapshot.child("recibirCorreos").getValue();
             }
 
             @Override

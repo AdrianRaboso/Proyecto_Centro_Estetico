@@ -1,7 +1,9 @@
 package com.example.adrin.proyecto_centro_estetico;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -45,11 +47,14 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
     FirebaseUser user;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference();
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datos_usuario);
+
+        preferences = getSharedPreferences("inicioDatosUsuario", Context.MODE_PRIVATE);
 
         //Colocamos la Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_cuenta_usuario);
@@ -330,6 +335,16 @@ public class DatosUsuarioActivity extends AppCompatActivity implements View.OnCl
     protected void onStop() {
         super.onStop();
         firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+    }
+
+    private void cargarConfiguracion() {
+        boolean isPrimerInicio = preferences.getBoolean("confDatosUsuario", true);
+        if (isPrimerInicio) {
+            //Guardamos la configuracion
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("confDatosUsuario", false);
+            editor.apply();
+        }
     }
 
     @Override

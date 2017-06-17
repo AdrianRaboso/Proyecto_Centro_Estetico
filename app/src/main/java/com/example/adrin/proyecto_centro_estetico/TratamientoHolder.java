@@ -57,7 +57,7 @@ public class TratamientoHolder extends RecyclerView.ViewHolder {
         Glide.with(context)
                 .load(img)
                 .crossFade()
-                .animate(android.R.anim.slide_in_left)
+                .animate(R.anim.img_custom_anim)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.relax)
                 .into(field);

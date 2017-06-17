@@ -1,6 +1,8 @@
 package com.example.adrin.proyecto_centro_estetico;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,13 +41,14 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
     private GoogleApiClient googleApiClient;
     private FloatingActionButton fab;
     private String user;
+    private boolean isPrimerInicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-        //Si no tiene usuario creado se lo creamos al inicio
+        //Si no tiene usuario creado se lo creamos al isPrimerInicio
         Utils.crearResgistroAutomaticoUsuario();
 
         //Colocamos la Toolbar
@@ -81,6 +84,21 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    private void cargarConfiguracion() {
+        SharedPreferences preferences = getSharedPreferences("inicioDatosUsuario", Context.MODE_PRIVATE);
+        isPrimerInicio = preferences.getBoolean("confDatosUsuario", true);
+        if (isPrimerInicio) {
+            Intent i = new Intent(this, DatosUsuarioActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override

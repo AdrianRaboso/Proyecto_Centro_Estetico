@@ -1,95 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><!--android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp"
-    app:cardUseCompatPadding="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/txt_inicio_categoria"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_inicio_nombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="nombre"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_inicio_categoria" />
-
-            <TextView
-                android:id="@+id/txt_inicio_precio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="39dp"
-                android:layout_marginTop="110dp"
-                android:text="precio"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/txt_inicio_duracion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="9dp"
-                android:layout_marginLeft="8dp"
-                android:text="duracion"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_inicio_esteticista"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="esteticista"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/txt_inicio_duracion"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_inicio_nombre" />
-        </android.support.constraint.ConstraintLayout>
-    </LinearLayout>
-</android.support.v7.widget.CardView-->
-
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -99,14 +11,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="403dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Media -->
         <ImageView
             android:id="@+id/image_tratamiento"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:elevation="4dp"
             android:scaleType="fitXY" />
 
@@ -117,8 +29,7 @@
             android:orientation="vertical"
             android:paddingBottom="8dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="24dp">
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
 
             <android.support.constraint.ConstraintLayout
@@ -194,11 +105,9 @@
             <ImageButton
                 android:id="@+id/info"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="113dp"
+                android:layout_height="65dp"
                 android:layout_marginEnd="40dp"
-                android:layout_weight="0.1"
-                android:padding="0dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_info_black"
                 android:textColor="@color/colorAccent" />
@@ -209,7 +118,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_weight="0.1"
+                android:layout_weight="0.9"
+                android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/btn_elegir" />
         </LinearLayout>
