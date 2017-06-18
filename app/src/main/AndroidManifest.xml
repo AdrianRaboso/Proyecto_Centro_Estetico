@@ -89,6 +89,10 @@
             android:name=".CrearOfertaActivity"
             android:label="@string/app_crear_oferta"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".InformacionActivity"
+            android:label="@string/app_info_tienda"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

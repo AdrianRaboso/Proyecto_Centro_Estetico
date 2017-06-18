@@ -18,7 +18,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="title_lista_de_tratamientos">Lista de tratamientos</string>
     <string name="title_informacion">Información</string>
-    <string name="action_llamar">Llamar a la tienda</string>
+    <string name="action_llamar">Información tienda</string>
 
     <!--Login-->
     <string name="titulo">Centro De Estética</string>
@@ -158,7 +158,7 @@
     <string name="registro_correcto">Registrado correctamente. Recibirá un correo de confirmación</string>
     <string name="nombreApellidos">Nombre y apellidos</string>
     <string name="DNI">DNI</string>
-    <string name="telf">Teléfono</string>
+    <string name="telf">Teléfono:</string>
     <string name="enfermedades">Enfermedades</string>
     <string name="dispMedicos">Disp. Médicos</string>
     <string name="alergias">Alergias</string>
@@ -199,4 +199,8 @@
     <string name="app_borrar_oferta">Borrar oferta</string>
     <string name="app_crear_oferta">Nueva oferta</string>
     <string name="oferta_creada_exito">¡Oferta creada con éxito!</string>
+    <string name="config_ver_img_oferta">Cambiar la imagen de fondo de las ofertas</string>
+    <string name="congif_summary_img_oferta">Elija una imagen que colocar en las ofertas</string>
+    <string name="app_info_tienda">Información de la tienda</string>
+    <string name="limpiar">Limpiar</string>
 </resources>

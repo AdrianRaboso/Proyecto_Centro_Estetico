@@ -138,7 +138,11 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             });
             finish();
             return true;
-        } else if (id == R.id.action_llamar && Utils.PROPIETARIO.equals(Utils.currentUser())) {
+        } else if (id == R.id.action_llamar) {
+            //Accedemos a la informacion de la tienda
+            Intent info = new Intent(InicioActivity.this, InformacionActivity.class);
+            startActivity(info);
+
             //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 12);

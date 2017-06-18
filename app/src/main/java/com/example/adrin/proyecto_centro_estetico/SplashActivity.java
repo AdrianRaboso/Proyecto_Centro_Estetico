@@ -59,6 +59,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Utils.PROPIETARIO = dataSnapshot.child("correo").getValue().toString();
+                Utils.TELEFONO = dataSnapshot.child("telefono").getValue().toString();
                 Utils.CORREO = dataSnapshot.child("correo").getValue().toString();
                 Utils.IS_ENVIAR = (boolean) dataSnapshot.child("recibirCorreos").getValue();
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);

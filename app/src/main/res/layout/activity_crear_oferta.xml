@@ -114,7 +114,7 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancelar"
+        android:text="@string/limpiar"
         android:textStyle="bold"
         android:layout_marginRight="66dp"
         android:layout_alignTop="@+id/btn_crear_aceptar_oferta"

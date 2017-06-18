@@ -105,8 +105,8 @@ public class ResumenCitaActivity extends AppCompatActivity {
 
     private void addCitaCalendario() {
         AlertDialog.Builder calendarDialog = new AlertDialog.Builder(ResumenCitaActivity.this);
-        calendarDialog.setTitle("Añadir evento");
-        calendarDialog.setMessage("¿Quieres añadir además el evento al calendario de tu dispositivo?");
+        calendarDialog.setTitle("Añadir recordatorio");
+        calendarDialog.setMessage("¿Quiere añadir un recordatorio en el calendario de su dispositivo?");
         calendarDialog.setPositiveButton("SÍ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

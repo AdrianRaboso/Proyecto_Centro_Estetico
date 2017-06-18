@@ -45,5 +45,9 @@
             android:key="cambiar_correo"
             android:summary="@string/congif_summary_correo"
             android:title="@string/config_ver_correo" />
+        <!--Preference
+            android:key="cambiar_img_oferta"
+            android:summary="@string/congif_summary_img_oferta"
+            android:title="@string/config_ver_img_oferta" /-->
     </PreferenceCategory>
 </PreferenceScreen>

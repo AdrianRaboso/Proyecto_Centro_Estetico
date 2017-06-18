@@ -2,15 +2,12 @@ package com.example.adrin.proyecto_centro_estetico;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -56,15 +53,16 @@ public class TratamientoHolder extends RecyclerView.ViewHolder {
         ImageView field = (ImageView) mView.findViewById(R.id.image_tratamiento);
         Glide.with(context)
                 .load(img)
-                .crossFade()
-                .animate(R.anim.img_custom_anim)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .animate(android.R.anim.fade_in)
                 .error(R.drawable.relax)
+                .placeholder(R.drawable.logo_centro)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(field);
     }
 
-    public void infoClick(final String descripcion){
-        ImageButton info = (ImageButton)mView.findViewById(R.id.info);
+    public void infoClick(final String descripcion) {
+        ImageButton info = (ImageButton) mView.findViewById(R.id.info);
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,8 +74,8 @@ public class TratamientoHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void citaClick(final InicioFragment.OnInicioListener mListener, final String nombreTratamiento){
-        Button pedirCita = (Button)mView.findViewById(R.id.cita);
+    public void citaClick(final InicioFragment.OnInicioListener mListener, final String nombreTratamiento) {
+        Button pedirCita = (Button) mView.findViewById(R.id.cita);
         pedirCita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
