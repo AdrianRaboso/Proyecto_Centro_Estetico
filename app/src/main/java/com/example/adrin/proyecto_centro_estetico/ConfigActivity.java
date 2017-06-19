@@ -49,11 +49,17 @@ public class ConfigActivity extends AppCompatActivity {
     public static class PrefsFragment extends PreferenceFragment {
         private Preference crear, modificar, borrar, verUsuarios, telefono, correo, crearOferta, modificarOferta, borrarOferta;
         private SwitchPreference mensajes;
+        private FirebaseDatabase database;
+        private DatabaseReference refPropietario;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.config_layout);
+
+            //Cambiamos
+            database = FirebaseDatabase.getInstance();
+            refPropietario = database.getReference("Propietario");
 
             crear = findPreference("add_tratamiento");
             modificar = findPreference("modify_tratamiento");
@@ -110,13 +116,6 @@ public class ConfigActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
                     boolean isRecibirCorreos = (Boolean) o;
-                    //Sacamos el propietario de la app
-                    FirebaseDatabase database;
-                    DatabaseReference refPropietario;
-
-                    //Cambiamos
-                    database = FirebaseDatabase.getInstance();
-                    refPropietario = database.getReference("Propietario");
                     refPropietario.child("recibirCorreos").setValue(isRecibirCorreos);
                     return true;
                 }
@@ -139,9 +138,7 @@ public class ConfigActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if (!mensaje.getText().toString().equals("") && mensaje.getText().toString().length() == 9) {
-                                FirebaseDatabase database;
-                                database = FirebaseDatabase.getInstance();
-                                database.getReference("Propietario").child("telefono").setValue(mensaje.getText().toString().trim());
+                                refPropietario.child("telefono").setValue(mensaje.getText().toString().trim());
                             } else {
                                 Toast.makeText(getActivity(), "El teléfono no es válido", Toast.LENGTH_SHORT).show();
                             }
@@ -171,9 +168,7 @@ public class ConfigActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if (isValidEmail(mensaje.getText().toString())) {
-                                FirebaseDatabase database;
-                                database = FirebaseDatabase.getInstance();
-                                database.getReference("Propietario").child("correo").setValue(mensaje.getText().toString().trim());
+                                refPropietario.child("correo").setValue(mensaje.getText().toString().trim());
                             } else {
                                 Toast.makeText(getActivity(), "El correo no es válido", Toast.LENGTH_SHORT).show();
                             }

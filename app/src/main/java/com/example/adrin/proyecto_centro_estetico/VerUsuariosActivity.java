@@ -1,14 +1,15 @@
 package com.example.adrin.proyecto_centro_estetico;
 
+import android.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -87,7 +88,9 @@ public class VerUsuariosActivity extends AppCompatActivity {
         alertMostrarOpciones.setNegativeButton(R.string.correo_usuario, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                crearDialogoMensaje(correoTo);
+                Intent correo = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", correoTo, null));
+                startActivity(correo);
+                //crearDialogoMensaje(correoTo);
             }
         });
         alertMostrarOpciones.show();
@@ -122,19 +125,13 @@ public class VerUsuariosActivity extends AppCompatActivity {
             //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
             if (ActivityCompat.checkSelfPermission(VerUsuariosActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(VerUsuariosActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, 12);
+            } else {
                 Intent llamada = new Intent(Intent.ACTION_CALL);
                 llamada.setData(Uri.parse("tel:+34" + telefonoTo));
-                if (ActivityCompat.checkSelfPermission(VerUsuariosActivity.this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(llamada);
-                    finish();
-                }
-            } else {
-                Snackbar.make(getCurrentFocus(), "La aplicación no tiene permisos para hacer llamadas", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                startActivity(llamada);
             }
-        }else{
-            Snackbar.make(getCurrentFocus(), "El usuario no tiene número de teléfono", Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
+        } else {
+            Snackbar.make(getCurrentFocus(), "El usuario no tiene número de teléfono", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
     }
 

@@ -1,8 +1,5 @@
 package com.example.adrin.proyecto_centro_estetico;
 
-import android.support.annotation.NonNull;
-
-import com.example.adrin.proyecto_centro_estetico.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,10 +18,10 @@ import java.util.List;
 
 public class Utils {
     public static String user = "";
-    public static String CORREO = "";
+    public static String CORREO = "avenuebeautycenter@gmail.com";
     public static String PASS = "avenuebeauty";
-    public static String PROPIETARIO = "";
-    public static String TELEFONO = "";
+    public static String PROPIETARIO = "avenuebeautycenter@gmail.com";
+    public static String TELEFONO = "636952978";
     public static boolean IS_ENVIAR = true;
 
     public static String currentUser() {
@@ -33,29 +30,6 @@ public class Utils {
         FirebaseUser usuario = firebaseAuth.getCurrentUser();
         user = usuario.getEmail();
         return user;
-    }
-
-    public static void getPropietario() {
-        //Sacamos el propietario de la app
-        FirebaseDatabase database;
-        DatabaseReference refCitas;
-
-        database = FirebaseDatabase.getInstance();
-        refCitas = database.getReference("Propietario");
-        refCitas.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-               // PROPIETARIO = dataSnapshot.child("correo").getValue().toString();
-                TELEFONO = dataSnapshot.child("telefono").getValue().toString();
-                CORREO = dataSnapshot.child("correo").getValue().toString();
-                IS_ENVIAR = (boolean) dataSnapshot.child("recibirCorreos").getValue();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     public static void crearResgistroAutomaticoUsuario() {

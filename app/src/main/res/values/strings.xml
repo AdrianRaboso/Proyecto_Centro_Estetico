@@ -140,9 +140,9 @@
     <string name="summary_envio_mail">Permite recibir mensaje por correo cada vez que realizen o cancelen una cita</string>
     <string name="title_config_envio_mail">Confirmar citas</string>
     <string name="app_config">Configuración</string>
-    <string name="hint_nombre_crear">Nombre</string>
+    <string name="hint_nombre_crear">Título (30 carac.)</string>
     <string name="hint_categoria_crear">Categoría</string>
-    <string name="hint_descripcion_crear">Descripcion</string>
+    <string name="hint_descripcion_crear">Descripcion (100 carac.)</string>
     <string name="hint_esteticista_crear">Nombre de la esteticista</string>
     <string name="hint_precio_crear">Precio</string>
     <string name="app_crear_tratamiento">Nuevo tratamiento</string>
@@ -203,4 +203,6 @@
     <string name="congif_summary_img_oferta">Elija una imagen que colocar en las ofertas</string>
     <string name="app_info_tienda">Información de la tienda</string>
     <string name="limpiar">Limpiar</string>
+    <string name="hint_nombre_crear_tra">Nombre</string>
+    <string name="hint_descripcion_crear_tra">Descripción</string>
 </resources>

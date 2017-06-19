@@ -96,7 +96,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="0.8"
             android:enabled="false"
-            android:text="beautyavenuecenter@gmail.com"
+            android:text="avenuebeautycenter@gmail.com"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
 

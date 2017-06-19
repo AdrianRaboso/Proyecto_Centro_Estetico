@@ -43,13 +43,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
 
         inicializarGoogleAppi();
-
         ponerEscuchaBotGoogle();
-
         iniciarFirebaseAuth();
-
         llamarElementosVista();
-
         ponerEscuchaBotones();
 
     }
@@ -213,7 +209,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void handleSigninResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
-            //goMainScreen();//Abrimos el activity principal donde mostraremos los datos
             firebaseAuthWithGoogle(result.getSignInAccount());//le mandamos la cuenta
         } else {
             Toast.makeText(this, "No se pudo iniciar sesión", Toast.LENGTH_SHORT).show();

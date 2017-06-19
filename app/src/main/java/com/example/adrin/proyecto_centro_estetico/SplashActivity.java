@@ -38,10 +38,6 @@ public class SplashActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PERMISSIONS_INTERNET);
         }
 
-        //Sacamos los datos de la tabla propietario de la app
-        //Utils.getPropietario();
-        //Utils.getEnviarMensajes();
-
         //Ponemos fondo de pantalla al splahs
         getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.splash_theme));
         bar = (ProgressBar) findViewById(R.id.barraProgreso);
@@ -51,11 +47,11 @@ public class SplashActivity extends AppCompatActivity {
         txtTitulo.setText(R.string.txt_bienvenida);
 
         final FirebaseDatabase database;
-        DatabaseReference refCitas;
+        DatabaseReference refPropietario;
 
         database = FirebaseDatabase.getInstance();
-        refCitas = database.getReference("Propietario");
-        refCitas.addValueEventListener(new ValueEventListener() {
+        refPropietario = database.getReference("Propietario");
+        refPropietario.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Utils.PROPIETARIO = dataSnapshot.child("correo").getValue().toString();
@@ -70,7 +66,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Utils.PROPIETARIO = "avenuebeautycenter@gmail.com";
-                //Toast.makeText(SplashActivity.this, "Ha habido un error al conectarse a la base de datos. Intentelo de nuevo más tarde", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

@@ -142,20 +142,6 @@ public class InicioActivity extends AppCompatActivity implements CitasFragment.O
             //Accedemos a la informacion de la tienda
             Intent info = new Intent(InicioActivity.this, InformacionActivity.class);
             startActivity(info);
-
-            //Pide acceso a los permisos en tiempo de ejecucion si todavía no se les ha concedido a la aplicacion
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 12);
-                Intent llamada = new Intent(Intent.ACTION_CALL);
-                llamada.setData(Uri.parse("tel:+34" + Utils.TELEFONO));
-                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(llamada);
-                    finish();
-                }
-            } else {
-                Snackbar.make(getCurrentFocus(), "La aplicación no tiene permisos para hacer llamadas", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-            }
         } else if (id == R.id.action_preferencias) {
             //Accedemos a las preferencias
             Intent config = new Intent(InicioActivity.this, DatosUsuarioActivity.class);

@@ -32,7 +32,8 @@
         <SwitchPreference
             android:key="config_envia_mail"
             android:summary="@string/summary_envio_mail"
-            android:title="@string/title_config_envio_mail" />
+            android:title="@string/title_config_envio_mail"
+            android:clickable="true"/>
         <Preference
             android:key="ver_usuarios"
             android:summary="@string/congif_summary_ver"

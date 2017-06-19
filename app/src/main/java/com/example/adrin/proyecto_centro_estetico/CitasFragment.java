@@ -59,7 +59,7 @@ public class CitasFragment extends Fragment {
         if (!Utils.PROPIETARIO.equals(Utils.currentUser())) {
             citasOrdenadas = refCitas.orderByChild("cod_cliente").equalTo(Utils.currentUser());
         } else {
-            citasOrdenadas = refCitas.orderByChild("cod_cliente");
+            citasOrdenadas = refCitas.orderByChild("fecha");
         }
         recycler = (RecyclerView) view.findViewById(R.id.list_citas);
         empty = (TextView) view.findViewById(android.R.id.empty);
@@ -84,7 +84,13 @@ public class CitasFragment extends Fragment {
                 //Sacamos la referencia del objeto en la base de datos
                 final DatabaseReference refCita = getRef(position);
 
-                if (calFecha.getTime().after(new Date())) {
+                if (calFecha.getTime().after(new Date()) || calFecha.getTime().equals(new Date())) {
+                    //Pintamos las citas que sean hoy
+                    if (calFecha.getTime().equals(new Date())) {
+                        citaViewHolder.setCitaHoy();
+                    }else{
+                        citaViewHolder.setCitaNoHoy();
+                    }
                     //si es admin le añadmimos el nombre a la cita
                     if (Utils.PROPIETARIO.equals(Utils.currentUser())) {
                         citaViewHolder.setFecha(cita.getFecha() + " a las " + cita.getHora() + ":00\n" + "(" + cita.getCod_cliente() + ")");

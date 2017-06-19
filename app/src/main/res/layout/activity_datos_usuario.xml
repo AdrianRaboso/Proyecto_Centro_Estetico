@@ -66,6 +66,7 @@
         android:hint="@string/DNI"
         android:inputType="textPersonName"
         android:maxLength="9"
+        android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
         android:textColorHint="@android:color/background_dark" />
 

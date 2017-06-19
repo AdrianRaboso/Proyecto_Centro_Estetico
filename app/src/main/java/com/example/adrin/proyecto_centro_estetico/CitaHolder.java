@@ -1,4 +1,6 @@
 package com.example.adrin.proyecto_centro_estetico;
+
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -23,5 +25,20 @@ public class CitaHolder extends RecyclerView.ViewHolder {
     public void setFecha(String nombre) {
         TextView field = (TextView) mView.findViewById(R.id.textFecha);
         field.setText(nombre);
+    }
+
+    public void setCitaHoy() {
+        mView.setBackgroundColor(Color.parseColor("#0092da"));
+        TextView fecha = (TextView) mView.findViewById(R.id.textFecha);
+        TextView tra = (TextView) mView.findViewById(R.id.textTratamiento);
+        tra.setTextColor(Color.WHITE);
+        fecha.setTextColor(Color.WHITE);
+    }
+    public void setCitaNoHoy() {
+        mView.setBackgroundColor(Color.WHITE);
+        TextView fecha = (TextView) mView.findViewById(R.id.textFecha);
+        TextView tra = (TextView) mView.findViewById(R.id.textTratamiento);
+        tra.setTextColor(Color.BLACK);
+        fecha.setTextColor(Color.BLACK);
     }
 }
